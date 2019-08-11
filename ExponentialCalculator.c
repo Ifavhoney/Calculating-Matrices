@@ -17,6 +17,8 @@ int main(){
     
          }
          printf("power of %d = %d", n, result);
+  
+  return 0;
 
 }
 
