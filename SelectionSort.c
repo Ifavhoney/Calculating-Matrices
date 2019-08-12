@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 void swapNumber(int *x, int *y);
 void selectionSort(int data[], int size);
@@ -14,6 +13,7 @@ int main(){
         printf("%d ", arr[i]);
     }
 }
+//Selection Sort compares max element to selected element
 void selectionSort(int data[], int size){
     int last_index;
     for (int i = 0; i < size; i++) {
