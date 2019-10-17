@@ -1,11 +1,11 @@
 #include "text.h"
 struct node_struct *txt2words(FILE *fp)
 {
-    int MAXCHAR = 99999;
+    int MAXCHAR = 256;
     /*Max Char*/
     char buff[MAXCHAR];
-    char *val = (char *)malloc(MAXCHAR);
     struct node_struct *word;
+    int valSize = MAXCHAR;
     /*Max Char*/
     word = (struct node_struct *)malloc(MAXCHAR);
 
@@ -13,24 +13,21 @@ struct node_struct *txt2words(FILE *fp)
     {
         while (fgets(buff, MAXCHAR, fp) != NULL)
         {
-
+            char *val = (char *)malloc(valSize);
             /*use strcat to add strings and strncat for chars */
             strcat(val, buff);
+            word->data = buff;
+            get_word(&word);
+            valSize += MAXCHAR;
         }
     }
     else
     {
         printf("unable to open file");
     }
-
-    word->data = val;
-    get_word(&word);
-
-    printf("\n\n%s", val);
-
-    free(val);
+    //    free(val);
     /*returns head*/
-    return word->data;
+    return word;
 }
 
 char *get_word(struct node_struct **list)
@@ -94,11 +91,9 @@ char *get_word(struct node_struct **list)
 
                 begin++;
             }
+            firstWord[begin] = '\0';
+            strncat(temp, &firstWord[begin], 1);
 
-            if (strlen(innitialWord) == 0)
-            {
-                memcpy(innitialWord, temp, length);
-            }
             ptr2 = (struct node_struct *)malloc(sizeof(struct node_struct));
 
             //    printf("WORD: %s \n", temp);
@@ -109,12 +104,17 @@ char *get_word(struct node_struct **list)
 
             struct node_struct *prev = *list;
 
-            printf("\n Adding To LinkedList:");
+            printf("\n Adding To LinkedList: ");
 
+            int header = 0;
             while (prev->next != NULL)
             {
-
                 prev = prev->next;
+                if (header == 0)
+                {
+                    memcpy(innitialWord, prev->data, length);
+                    header = 1;
+                }
                 printf("%s \n", prev->data);
             }
 
@@ -126,4 +126,36 @@ char *get_word(struct node_struct **list)
     }
     ptr->data = innitialWord;
     return ptr->data;
+}
+
+int ftext(FILE *fp, struct node_struct *list)
+{
+
+    struct node_struct *ptr = (struct node_struct *)malloc(sizeof(struct node_struct));
+
+    *ptr = *list;
+
+    int i = 0;
+    if (ptr->next == NULL)
+    {
+        printf("\nEMPTY!");
+    }
+    else
+    {
+        while (ptr->next != NULL)
+        {
+            i++;
+            ptr = ptr->next;
+            if (i % 80 == 0)
+            {
+                printf("\n");
+            }
+            printf("%s ", ptr->data);
+            /* param(3) the number of the objects to be written & thus, param(3) individual char*/
+            fwrite(ptr->data, sizeof(char), strlen(ptr->data) + 1, fp);
+            fwrite("\n", sizeof(char), 1, fp);
+        }
+    }
+
+    return 1;
 }

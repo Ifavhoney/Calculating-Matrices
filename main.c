@@ -11,15 +11,25 @@
 int main(int argc, const char *argv[])
 {
     FILE *fp;
+    //array is a pointer??
     fp = fopen("1342-0.txt", "r");
-    *txt2words(fp);
+    struct node_struct *ptr;
 
-    char txt[] = "Hello Jason Eddy MK\nKaizer God";
-    struct node_struct *list;
-    list = (struct node_struct *)malloc(sizeof(struct node_struct));
-    list->data = txt;
-    free(list);
-
+    //& gets the address, but i just
+    ptr = txt2words(fp);
     fclose(fp);
+
+    fp = fopen("output.txt", "w");
+    ftext(fp, ptr);
+
+    /*
+    char txt[] = "Hello Jason Eddy MK\nKaizer God";
+    list = (struct node_struct *)malloc(sizeof(struct node_struct));
+    list -> data = txt ;
+    //how to reference the pointer - nneed a double pointer
+   //  get_word(&list);
+     */
+    free(ptr);
+
     return 0;
 }
