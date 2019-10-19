@@ -1,30 +1,89 @@
 #include "text.h"
 
-/*
-   char str1[15];
-   char str2[15];
-   
-   strcpy(str1, "ABCDEF");
-   strcpy(str2, "ABCDEF");
+void free_list(struct node_struct *list, int free_data)
+{
 
- int ret = strcmpvoid(str1, str2);
-   
-   if(ret == 0){
-       printf("indicates str1 is equal to str2");
-   }
-   else {
-       printf("indicates str1 is not equal to str2");
-       //not equal
-   }
+    //pass in the data;
 
- */
+    struct node_struct *current = malloc(256);
+
+    current = list;
+
+    while (list->next != NULL)
+    {
+
+        if (free_data == 0)
+        {
+            free(current);
+        }
+        else
+        {
+            free(current->data);
+            free(current);
+        }
+    }
+}
+
+int length(struct node_struct *list)
+{
+    int i = 0;
+    while (list->next != NULL)
+    {
+        list = list->next;
+        i++;
+    }
+    return i;
+}
+
+struct node_struct *copy(struct node_struct *start, struct node_struct *end)
+{
+
+    struct node_struct *ptr2;
+    struct node_struct *list2 = (struct node_struct *)malloc(256);
+
+    long length;
+    while (start != end)
+    {
+        length = strlen(start->data);
+
+        if (start->next != NULL)
+        {
+
+            ptr2 = (struct node_struct *)malloc(length);
+            ptr2->data = start->data;
+
+            struct node_struct *temp;
+
+            temp = list2;
+
+            if (list2->data == NULL)
+            {
+                list2->data = ptr2->data;
+                list2->next = NULL;
+                continue;
+            }
+
+            while (temp->next != NULL)
+            {
+                temp = temp->next;
+                //printf("%s", temp->data);
+            }
+            temp->next = ptr2;
+        }
+
+        start = start->next;
+    }
+
+    return list2;
+}
 
 struct node_struct *search(struct node_struct *list, char *target, int (*compar)(const void *, const void *))
 {
 
     int ret;
     struct node_struct *ptr2;
-    struct node_struct *list2 = (struct node_struct *)malloc(20);
+    /*words are usually not 50 characters long */
+    struct node_struct *list2 = (struct node_struct *)malloc(50);
 
     while (list->next != NULL)
     {
@@ -59,7 +118,7 @@ struct node_struct *search(struct node_struct *list, char *target, int (*compar)
             temp->next = ptr2;
         }
     }
-    //Tail
+
     //  printf("%s", list2->data);
 
     return list2;
@@ -185,6 +244,7 @@ char *get_word(struct node_struct **list)
             begin++;
         }
     }
+
     ptr->data = innitialWord;
     return ptr->data;
 }
