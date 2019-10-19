@@ -1,4 +1,70 @@
 #include "text.h"
+
+/*
+   char str1[15];
+   char str2[15];
+   
+   strcpy(str1, "ABCDEF");
+   strcpy(str2, "ABCDEF");
+
+ int ret = strcmpvoid(str1, str2);
+   
+   if(ret == 0){
+       printf("indicates str1 is equal to str2");
+   }
+   else {
+       printf("indicates str1 is not equal to str2");
+       //not equal
+   }
+
+ */
+
+struct node_struct *search(struct node_struct *list, char *target, int (*compar)(const void *, const void *))
+{
+
+    int ret;
+    struct node_struct *ptr2;
+    struct node_struct *list2 = (struct node_struct *)malloc(20);
+
+    while (list->next != NULL)
+    {
+        list = list->next;
+
+        ret = (compar)(target, list->data);
+
+        if (ret == 0)
+        {
+            if (list2->data == NULL)
+            {
+                list2->data = list;
+                list2->next = NULL;
+                continue;
+            }
+            //  printf("Check ");
+            long length = strlen(list->data) + 1;
+
+            ptr2 = (struct node_struct *)malloc(length);
+            ptr2->data = list;
+            ptr2->next = NULL;
+
+            struct node_struct *temp;
+            temp = list2;
+
+            while (temp->next != NULL)
+            {
+                temp = temp->next;
+                // printf("%s \t", temp -> data);
+            }
+
+            temp->next = ptr2;
+        }
+    }
+    //Tail
+    //  printf("%s", list2->data);
+
+    return list2;
+}
+
 struct node_struct *txt2words(FILE *fp)
 {
     int MAXCHAR = 256;
@@ -32,37 +98,32 @@ struct node_struct *txt2words(FILE *fp)
 
 char *get_word(struct node_struct **list)
 {
-    printf("BEGIN");
 
     struct node_struct *ptr2;
 
-    //malloc
+    /*Storing GIVEN 256 CHARACTERS into ARRAY*/
     struct node_struct *ptr = (struct node_struct *)malloc(sizeof(struct node_struct));
 
     ptr = *list;
-    //To get correct length of char array
     int length = (int)strlen(ptr->data) + 1;
 
     char array[length];
 
-    //copies String into array 'j','a'
     memcpy(array, ptr->data, length);
-    /* displays finalized word*/
-    //total
+
     char firstWord[length];
 
-    char *innitialWord = malloc(length); /* + 1 for null terminator. */
+    char *innitialWord = malloc(length);
 
     int i;
 
-    //to store beginning to next space
     int begin = 0;
-    printf("\nFULL WORD: %s \n\n", array);
+    //printf("\nFULL WORD: %s \n\n", array);
 
     for (i = 0; array[i] != '\0'; i++)
     {
 
-        /*allows only for spaces */
+        /*SEPRATING WORDS BY SPACE*/
         if (array[i] == ' ' || array[i + 1] == '\0')
         {
             /*malloc*/
@@ -84,6 +145,7 @@ char *get_word(struct node_struct **list)
                     /*Avoids extra spaces*/
                     break;
                 }
+
                 firstWord[begin] = array[begin];
 
                 /*use strncat when you are not sure that it has a \0 at the end and for adding chars*/
@@ -91,6 +153,7 @@ char *get_word(struct node_struct **list)
 
                 begin++;
             }
+            /* ADDING WORD TO LINKEDLIST */
             firstWord[begin] = '\0';
             strncat(temp, &firstWord[begin], 1);
 
@@ -98,13 +161,12 @@ char *get_word(struct node_struct **list)
 
             //    printf("WORD: %s \n", temp);
 
-            //PTR DATA
             ptr2->data = temp;
             ptr2->next = NULL;
 
             struct node_struct *prev = *list;
 
-            printf("\n Adding To LinkedList: ");
+            //printf("\n Adding To LinkedList: ");
 
             int header = 0;
             while (prev->next != NULL)
@@ -115,7 +177,6 @@ char *get_word(struct node_struct **list)
                     memcpy(innitialWord, prev->data, length);
                     header = 1;
                 }
-                printf("%s \n", prev->data);
             }
 
             /*see if ptr2 -> data exists printf it*/

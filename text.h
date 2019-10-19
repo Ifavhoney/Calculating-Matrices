@@ -20,4 +20,4 @@ struct node_struct *sort(struct node_struct *list, int (*compar)(const void *, c
 void remove_repeats(struct node_struct *list, int (*compar)(const void *, const void *));
 int length(struct node_struct *list);
 void free_list(struct node_struct *list, int free_data);
-#endif
+#endif // text_h
