@@ -27,7 +27,7 @@ int main(int argc, const char *argv[])
   fp = fopen("1342-0.txt", "r");
   head = txt2words(fp);
 
-  free_list(head->next->next, 1);
+  remove_repeats(head, strcmpvoid);
 
   while (head->next != NULL)
   {
@@ -41,7 +41,29 @@ int main(int argc, const char *argv[])
 }
 
 /*
- Copy Test Case
+ //Free_List test case ReadME
+ 
+ FILE *fp;
+     struct node_struct *head, *chapter1, *chapter2, *copy_of;
+        struct node_struct *sptr, *sptr1;
+    
+     fp = fopen( "1342-0.txt", "r" );
+     head = txt2words( fp );
+
+    free_list(head -> next -> next, 1);
+    
+    
+    while (head -> next != NULL) {
+        head = head -> next;
+        printf("%s ", head -> data);
+    }
+     
+
+     fclose( fp );
+ */
+
+/*
+// Copy Test Case
  
   FILE *fp;
   struct node_struct *head, *chapter1, *chapter2, *copy_of;
@@ -52,8 +74,8 @@ int main(int argc, const char *argv[])
 
   fclose( fp );
  
- sptr = search( head, "The", strcmpvoid );
- sptr1 = search( head, "online", strcmpvoid );
+ sptr = search( head, "print", strcmpvoid );
+ sptr1 = search( head, "list", strcmpvoid );
  
  chapter1 = sptr -> data;
  chapter2 = sptr1 -> data;
@@ -115,8 +137,7 @@ int main(int argc, const char *argv[])
  */
 
 /*
-  
-  
+  //Txt2 test case
   
   FILE *fp;
   fp = fopen("1342-0.txt", "r");
