@@ -27,23 +27,15 @@ int main(int argc, const char *argv[])
   fp = fopen("1342-0.txt", "r");
   head = txt2words(fp);
 
-  fclose(fp);
+  free_list(head->next->next, 1);
 
-  sptr = search(head, "The", strcmpvoid);
-  sptr1 = search(head, "online", strcmpvoid);
-
-  chapter1 = sptr->data;
-  chapter2 = sptr1->data;
-
-  copy_of = copy(chapter1, chapter2);
-
-  //free_list( copy_of, 0 );
-  free_list(copy_of->data, 0);
-
-  if (copy_of != NULL)
+  while (head->next != NULL)
   {
-    printf("%s", copy_of->data);
+    head = head->next;
+    printf("%s ", head->data);
   }
+
+  fclose(fp);
 
   return 0;
 }
