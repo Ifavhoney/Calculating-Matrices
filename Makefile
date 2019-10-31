@@ -4,7 +4,7 @@ all: common.o binary.o name.o title.o principals.o a3.o
 a3.o: a3.c
 	gcc -Wall -ansi -pedantic a3.c -c -o a3.o
 
-prncipals.o: principals.c
+principals.o: principals.c
 	gcc -Wall -ansi -pedantic -c principals.c -o principals.o
 
 title.o: title.c

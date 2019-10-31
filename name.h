@@ -9,6 +9,6 @@ struct name_basics
     char *primaryName;
 };
 
+//prototypes
 struct name_basics *get_name(char *value);
-
 #endif /* name_h */

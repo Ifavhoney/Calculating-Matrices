@@ -10,10 +10,21 @@
 #include <stdlib.h>
 #include "common.h"
 
+//calculates #of rows based on file
+int totalRows(FILE *fp)
+{
+    int i = 0;
+    char buff[256];
+    while (fgets(buff, 256, fp) != NULL)
+    {
+        i++;
+    }
+    fseek(fp, 0, SEEK_SET);
+    return i - 1;
+}
 /*prints the values of a given column - may have to change to single pointer*/
 char *get_column(char *src, char **dst, int colNum)
 {
-    long length = strlen(src);
     const char delimiter[] = "\t";
     char *tmp;
     //takes the src, and looks for a space
