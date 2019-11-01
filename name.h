@@ -3,11 +3,9 @@
 #define name_h
 
 #include <stdio.h>
-struct name_basics
-{
-    char *nconst;
-    char *primaryName;
-};
+struct name_basics {
+char *nconst;
+char *primaryName; };
 
 //prototypes
 struct name_basics *get_name(char *value);
