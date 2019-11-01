@@ -3,7 +3,7 @@
 #include "common.h"
 #include <string.h>
 #include <stdlib.h>
-#define ARRAY_SIZE 1500000
+#define ARRAY_SIZE 6467470
 
 struct title_basics *get_title(char *value)
 {
@@ -11,7 +11,7 @@ struct title_basics *get_title(char *value)
     /* Using relative path holds the full path e.g  "./files/name.basics.tsv" */
     //strcat(ptr, "/name.basics.tsv");
 
-    strcat(ptr, "/title.basicss.tsv");
+    strcat(ptr, "/title.basics.tsv");
     //Got the length
     long length;
     length = strlen(ptr);

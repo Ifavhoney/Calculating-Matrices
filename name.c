@@ -3,16 +3,17 @@
 #include "common.h"
 #include <string.h>
 #include <stdlib.h>
-#define ARRAY_SIZE 1500000
 
+#define ARRAY_SIZE 9700000
 //returns a pointer to an array of struct name basics
-struct name_basics *get_name(char *value)
+struct name_basics *
+get_name(char *value)
 {
     char *ptr = value;
     /* Using relative path holds the full path e.g  "./files/name.basics.tsv" */
     //strcat(ptr, "/name.basics.tsv");
 
-    strcat(ptr, "/name.basicss.tsv");
+    strcat(ptr, "/name.basics.tsv");
     //Got the length
     long length;
     length = strlen(ptr);
@@ -20,7 +21,7 @@ struct name_basics *get_name(char *value)
     //pointer array to return a pointer of type name basics
     struct name_basics *array;
 
-    static long hi[ARRAY_SIZE];
+    static int hi[ARRAY_SIZE];
     char buff[256];
     FILE *fp;
 
@@ -85,6 +86,7 @@ struct name_basics *get_name(char *value)
                 char *result2 = get_column(buff, 1);
                 if (hi[i - total - 1] == 0)
                 {
+
                     //then ok
                     array[i - total - 1].primaryName = NULL;
                 }
