@@ -3,6 +3,7 @@
 #include "common.h"
 #include <string.h>
 #include <stdlib.h>
+#define ARRAY_SIZE 1500000
 
 struct title_basics *get_title(char *value)
 {
@@ -17,13 +18,10 @@ struct title_basics *get_title(char *value)
 
     //pointer array to return a pointer of type name basics
     struct title_basics *array;
-    struct title_basics *array2;
-    array = malloc(10000);
 
-    array2 = NULL;
-    long hi[500000];
+    static int hi[ARRAY_SIZE];
 
-    long hi2[500000];
+    static int hi2[ARRAY_SIZE];
 
     char buff[256];
     FILE *fp;
@@ -34,13 +32,14 @@ struct title_basics *get_title(char *value)
     int i = 0;
 
     int total = totalRows(fp); // 4
-    struct title_basics *name;
 
     if (fp != NULL)
     {
 
         while (fgets(buff, 256, fp) != NULL)
         {
+            array = malloc(strlen(buff) + 1);
+
             char *result = get_column(buff, 4);
 
             if (strstr(result, "0") != NULL)
@@ -62,6 +61,7 @@ struct title_basics *get_title(char *value)
 
         while (fgets(buff, 256, fp) != NULL)
         {
+
             char *result = get_column(buff, 1);
 
             if (strstr(result, "movie") != NULL)
@@ -120,6 +120,7 @@ struct title_basics *get_title(char *value)
 
             if (i == total)
             {
+
                 fseek(fp, 0, SEEK_SET);
             }
 
@@ -141,7 +142,6 @@ struct title_basics *get_title(char *value)
 
     //printf("array @ 1 is %s", array[4].primaryName);
 
-    free(name);
     fclose(fp);
     return array;
 }

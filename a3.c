@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include "title.h"
+#include "principals.h"
+#include "name.h"
+
 int main(int argc, char **argv)
 {
 
@@ -11,18 +14,31 @@ int main(int argc, char **argv)
 
     struct title_basics *ptr = get_title(argv[1]);
     printf("\n\n");
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 999999; i++)
     {
-        printf("%s - %s\n", ptr[i].tconst, ptr[i].primaryTitle);
+
+        printf("%d - %s - %s\n", i, ptr[i].tconst, ptr[i].primaryTitle);
     }
+    //before ending, need to find a way to find total number of constantly?
 
     /*
-    struct name_basics *ptr = get_name(argv[1]);
+        struct title_principals *ptr = get_title_principals(argv[1]);
     printf("\n\n");
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 1000000; i++)
     {
-        printf("%s - %s\n", ptr[i].nconst, ptr[i].primaryName);
+        printf("%d - %s - %s - %s\n", i, ptr[i].tconst, ptr[i].nconst, ptr[i].characters);
     }
+
+  struct name_basics *ptr = get_name(argv[1]);
+    printf("\n\n");
+    for (int i = 0; i < 1000000; i++)
+    {
+        printf("%d - %s - %s\n", i, ptr[i].nconst, ptr[i].primaryName);
+    }
+
+    
+
+  
     */
     return 0;
 }

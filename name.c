@@ -3,6 +3,7 @@
 #include "common.h"
 #include <string.h>
 #include <stdlib.h>
+#define ARRAY_SIZE 1500000
 
 //returns a pointer to an array of struct name basics
 struct name_basics *get_name(char *value)
@@ -18,12 +19,8 @@ struct name_basics *get_name(char *value)
 
     //pointer array to return a pointer of type name basics
     struct name_basics *array;
-    struct name_basics *array2;
-    array = malloc(10000);
 
-    array2 = NULL;
-
-    long hi[1000000];
+    static long hi[ARRAY_SIZE];
     char buff[256];
     FILE *fp;
 
@@ -39,6 +36,8 @@ struct name_basics *get_name(char *value)
 
         while (fgets(buff, 256, fp) != NULL)
         {
+            array = malloc(strlen(buff) + 1);
+
             char *result = get_column(buff, 4);
 
             if (strstr(result, "actor") != NULL)
@@ -50,7 +49,6 @@ struct name_basics *get_name(char *value)
             else
             {
 
-                printf("%d IS MISSING\n", i);
                 hi[i] = 0;
             }
 
@@ -95,8 +93,6 @@ struct name_basics *get_name(char *value)
 
                     //switch 2
                     array[i - total - 1].primaryName = result2;
-
-                    printf("I IS %d", i);
                 }
             }
 
@@ -127,3 +123,83 @@ struct name_basics *get_name(char *value)
     return array;
 }
 //a string that contains entire line from the file, where contents will be copied to, a column number
+
+/*
+
+
+#include "name.h"
+#include "common.h"
+#include <string.h>
+#include <stdlib.h>
+
+//returns a pointer to an array of struct name basics
+struct name_basics *get_name(char *value)
+{
+    char *ptr = value;
+    //strcat(ptr, "/name.basics.tsv");
+
+    strcat(ptr, "/name.basicss.tsv");
+    //Got the length
+    long length;
+    length = strlen(ptr);
+
+    //pointer array to return a pointer of type name basics
+    struct name_basics *array;
+    struct name_basics *array2;
+
+    static int hi[ARRAY_SIZE];
+    char buff[256];
+    FILE *fp;
+
+    //"/files/txt"
+    fp = fopen(ptr, "r");
+    printf("ptr is %s\n", ptr);
+    int i = 0;
+
+    int total = totalRows(fp); // 4
+
+    if (fp != NULL)
+    {
+
+        i = 0;
+        fseek(fp, 0, SEEK_SET);
+        while (fgets(buff, 256, fp) != NULL)
+        {
+            array = malloc(strlen(buff) + 1);
+
+            //Use column to pull out the nconst and primary name
+
+            array[i].nconst = "result1";
+
+            //switch 2
+
+            //switch 2
+            array[i - total - 1].primaryName = "result2";
+        }
+
+        if (i == total)
+        {
+            fseek(fp, 0, SEEK_SET);
+        }
+
+        //use strdup function to malloc memory
+
+        //  array[0].nconst= strdup(result1);
+        //increments to next
+        //  array[1].primaryName = strdup(result2);
+        //array++;
+        i++;
+
+        // break;
+    }
+    else
+    {
+        printf("unable to open file");
+    }
+
+    //printf("array @ 1 is %s", array[4].primaryName);
+
+    fclose(fp);
+    return array;
+}
+*/
