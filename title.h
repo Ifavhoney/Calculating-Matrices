@@ -10,6 +10,7 @@
 #define title_h
 
 #include <stdio.h>
+
 struct title_basics{
     char *tconst;
     char *primaryTitle;

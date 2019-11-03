@@ -11,7 +11,7 @@ struct title_basics *get_title(char *value)
     /* Using relative path holds the full path e.g  "./files/name.basics.tsv" */
     //strcat(ptr, "/name.basics.tsv");
 
-    strcat(ptr, "/title.basics.tsv");
+    // strcat(ptr, "/title.basics.tsv");
     //Got the length
     long length;
     length = strlen(ptr);
@@ -38,8 +38,7 @@ struct title_basics *get_title(char *value)
 
         while (fgets(buff, 256, fp) != NULL)
         {
-            array = malloc(strlen(buff) + 1);
-
+            length  += strlen(buff);
             char *result = get_column(buff, 4);
 
             if (strstr(result, "0") != NULL)
@@ -55,6 +54,7 @@ struct title_basics *get_title(char *value)
             }
             i++;
         }
+        array = malloc(length );
 
         i = 0;
         fseek(fp, 0, SEEK_SET);

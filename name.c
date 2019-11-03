@@ -20,7 +20,8 @@ get_name(char *value)
 
     //pointer array to return a pointer of type name basics
     struct name_basics *array;
-
+    struct name_basics *test;
+    // array = malloc(strlen(ptr) + 1);
     static int hi[ARRAY_SIZE];
     char buff[256];
     FILE *fp;
@@ -37,14 +38,14 @@ get_name(char *value)
 
         while (fgets(buff, 256, fp) != NULL)
         {
-            array = malloc(strlen(buff) + 1);
+            length += strlen(buff);
 
             char *result = get_column(buff, 4);
 
-            if (strstr(result, "actor") != NULL)
+            if (strstr(result, "actor") != NULL || strstr(result, "actress") != NULL)
             {
 
-                //1 for found
+                //1 for foundx
                 hi[i] = 1;
             }
             else
@@ -52,10 +53,10 @@ get_name(char *value)
 
                 hi[i] = 0;
             }
-
             i++;
         }
-
+        array = malloc(length);
+        //array = malloc(strlen(buff) + 1)
         i = 0;
         fseek(fp, 0, SEEK_SET);
         while (fgets(buff, 256, fp) != NULL)
@@ -92,6 +93,7 @@ get_name(char *value)
                 }
                 else
                 {
+                    //   array = malloc(strlen(buff) + 1);
 
                     //switch 2
                     array[i - total - 1].primaryName = result2;
@@ -120,7 +122,9 @@ get_name(char *value)
     }
 
     //printf("array @ 1 is %s", array[4].primaryName);
+    //free(array);
 
+    /*Because it reaches the end of the array that I cannot free */
     fclose(fp);
     return array;
 }

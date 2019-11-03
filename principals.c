@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define ARRAY_SIZE 1500000
+#define ARRAY_SIZE 197000000
 
 struct title_principals *get_title_principals(char *value)
 {
@@ -11,7 +11,7 @@ struct title_principals *get_title_principals(char *value)
     /* Using relative path holds the full path e.g  "./files/name.basics.tsv" */
     //strcat(ptr, "/name.basics.tsv");
 
-    strcat(ptr, "/title.principalss.tsv");
+//    strcat(ptr, "/title.principalss.tsv");
     //Got the length
     long length;
     length = strlen(ptr);
@@ -38,9 +38,10 @@ struct title_principals *get_title_principals(char *value)
         {
             //why dpes it work over here? and segfaults?
             //memory not allocated in time, therefore best to allocaste BEFORE getting to isnertion
-            array = malloc(strlen(buff) + 1);
+           
+            length  += strlen(buff);
 
-            char *result = get_column(buff, 3);
+            char *result = get_column(buff,  3);
 
             if (strstr(result, "actor") != NULL)
             {
@@ -53,6 +54,7 @@ struct title_principals *get_title_principals(char *value)
             }
             i++;
         }
+        array =  malloc(length);
 
         i = 0;
         fseek(fp, 0, SEEK_SET);

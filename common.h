@@ -12,7 +12,7 @@
 #include <stdio.h>
 
 
-
+void add_new_word(const char*w);
 //a string that contains entire line from the file, where contents will be copied to, a column number
 char *get_column(char *src, int colNum);
 //length
