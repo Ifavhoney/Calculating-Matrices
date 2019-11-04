@@ -1,4 +1,3 @@
-
 #include "title.h"
 #include "common.h"
 #include <string.h>
@@ -8,12 +7,16 @@
 struct arrayStruct *
 get_title(char *value)
 {
-    char *ptr = value;
+
     /* Using relative path holds the full path e.g  "./files/name.basics.tsv" */
 
-    strcat(ptr, "/title.basics.tsv");
+    char *ptr = malloc(strlen(value) + strlen("/title.basicss.tsv") + 1);
+
+    strcat(ptr, value);
+    strcat(ptr, "/title.basicss.tsv");
+
     long length;
-    length = strlen(ptr);
+    length = strlen(value);
     struct arrayStruct *test;
 
     struct title_basics *array;
@@ -26,13 +29,13 @@ get_title(char *value)
     FILE *fp;
 
     fp = fopen(ptr, "r");
-    printf("ptr is %s\n", ptr);
     int i = 0;
 
     int total = totalRows(fp);
 
     if (fp != NULL)
     {
+        printf("ptr is %s\n", ptr);
 
         while (fgets(buff, 256, fp) != NULL)
         {
@@ -51,7 +54,7 @@ get_title(char *value)
             }
             i++;
         }
-        array = malloc(length);
+        array = malloc(sizeof(char) * length);
 
         i = 0;
         fseek(fp, 0, SEEK_SET);

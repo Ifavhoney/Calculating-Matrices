@@ -1,12 +1,5 @@
-//how would you approach this?
-//How to test on the socs server w/out bitwise
+
 #include "binary.h"
-
-//1) A tree based on the key nconst that references the structures in the name_basics array.
-// (Since the nconst values are in ascending order in the input file, you will need to add
-//items to the tree in a clever way so that you don’t end up with a really long linked list
-
-//,
 
 struct node *find_nconst(struct node *root, char *value)
 {
@@ -66,13 +59,11 @@ char *reverse(char *key)
 
                 strncat(submit, key, 1);
             }
-            printf("\n");
             break;
         }
     }
     strncat(submit, "\0", 1);
 
-    //add terminating character after
     return submit;
 }
 
@@ -86,23 +77,18 @@ void insert(struct node **root, char *key, void *addressOf)
     node->left = NULL;
     node->right = NULL;
 
-    //malloc the node
     if (*root == NULL)
     {
 
         *root = node;
         return;
-        //Set root = init;
     }
-    //access root - accesses the header
     temp = *root;
 
     result = strcmp(key, reverse(temp->key));
 
     if (result > 0)
     {
-        //similar to while temp -> right != null
-        //   printf("right\t");
 
         insert(&temp->right, key, addressOf);
     }
@@ -110,29 +96,16 @@ void insert(struct node **root, char *key, void *addressOf)
     {
         insert(&temp->left, key, addressOf);
     }
-
-    //now find a way to add to tree depending on length
-
-    //inserts
 }
-
-/*Pointer behind Temp*/
-
-//now find a way to add to tree depending on length
-
-//inserts
 
 void printInorder(struct node *node)
 {
     if (node == NULL)
         return;
 
-    /* first recur on left child */
     printInorder(node->left);
 
-    /* then print the data of node */
     printf("%s ", node->key);
 
-    /* now recur on right child */
     printInorder(node->right);
 }

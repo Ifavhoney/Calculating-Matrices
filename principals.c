@@ -10,9 +10,12 @@ struct arrayStruct
     *
     get_title_principals(char *value)
 {
-    char *ptr = value;
 
+    char *ptr = malloc(strlen(value) + strlen("/title.principalss.tsv") + 1);
+
+    strcat(ptr, value);
     strcat(ptr, "/title.principalss.tsv");
+
     long length;
     length = strlen(ptr);
     struct arrayStruct *test = NULL;
@@ -32,7 +35,6 @@ struct arrayStruct
 
     if (fp != NULL)
     {
-
         while (fgets(buff, 256, fp) != NULL)
         {
 
@@ -62,7 +64,6 @@ struct arrayStruct
 
             if (hi[i] == 0)
             {
-                //then ok
                 array[i].characters = NULL;
             }
             else
