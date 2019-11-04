@@ -5,16 +5,19 @@
 
 #define ARRAY_SIZE 197000000
 
-struct title_principals *get_title_principals(char *value)
+struct arrayStruct
+    *
+    get_title_principals(char *value)
 {
     char *ptr = value;
     /* Using relative path holds the full path e.g  "./files/name.basics.tsv" */
     //strcat(ptr, "/name.basics.tsv");
 
-//    strcat(ptr, "/title.principalss.tsv");
+    //    strcat(ptr, "/title.principalss.tsv");
     //Got the length
     long length;
     length = strlen(ptr);
+    struct arrayStruct *test;
 
     //pointer array to return a pointer of type name basics
     struct title_principals *array;
@@ -38,10 +41,10 @@ struct title_principals *get_title_principals(char *value)
         {
             //why dpes it work over here? and segfaults?
             //memory not allocated in time, therefore best to allocaste BEFORE getting to isnertion
-           
-            length  += strlen(buff);
 
-            char *result = get_column(buff,  3);
+            length += strlen(buff);
+
+            char *result = get_column(buff, 3);
 
             if (strstr(result, "actor") != NULL)
             {
@@ -54,7 +57,7 @@ struct title_principals *get_title_principals(char *value)
             }
             i++;
         }
-        array =  malloc(length);
+        array = malloc(length);
 
         i = 0;
         fseek(fp, 0, SEEK_SET);
@@ -145,6 +148,13 @@ struct title_principals *get_title_principals(char *value)
     //printf("array @ 1 is %s", array[4].primaryName);
 
     fclose(fp);
-    return array;
+
+    test->size = i / 2;
+    test->address = array;
+    test->tree1 = 0;
+    test->tree2 = 0;
+
+    //printf("%s", *test);
+    return test;
 }
 //a string that contains entire line from the file, where contents will be copied to, a column number

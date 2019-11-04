@@ -3,10 +3,13 @@
 #define name_h
 
 #include <stdio.h>
-struct name_basics {
-char *nconst;
-char *primaryName; };
+#include "binary.h"
+struct name_basics
+{
+    char *nconst;
+    char *primaryName;
+};
 
 //prototypes
-struct name_basics *get_name(char *value);
+struct arrayStruct *get_name(char *value);
 #endif /* name_h */

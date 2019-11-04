@@ -5,7 +5,8 @@
 #include <stdlib.h>
 #define ARRAY_SIZE 6467470
 
-struct title_basics *get_title(char *value)
+struct arrayStruct *
+get_title(char *value)
 {
     char *ptr = value;
     /* Using relative path holds the full path e.g  "./files/name.basics.tsv" */
@@ -15,6 +16,7 @@ struct title_basics *get_title(char *value)
     //Got the length
     long length;
     length = strlen(ptr);
+    struct arrayStruct *test;
 
     //pointer array to return a pointer of type name basics
     struct title_basics *array;
@@ -38,7 +40,7 @@ struct title_basics *get_title(char *value)
 
         while (fgets(buff, 256, fp) != NULL)
         {
-            length  += strlen(buff);
+            length += strlen(buff);
             char *result = get_column(buff, 4);
 
             if (strstr(result, "0") != NULL)
@@ -54,7 +56,7 @@ struct title_basics *get_title(char *value)
             }
             i++;
         }
-        array = malloc(length );
+        array = malloc(length);
 
         i = 0;
         fseek(fp, 0, SEEK_SET);
@@ -142,7 +144,12 @@ struct title_basics *get_title(char *value)
 
     //printf("array @ 1 is %s", array[4].primaryName);
 
-    fclose(fp);
-    return array;
+    test->size = i / 2;
+    test->address = array;
+    test->tree1 = 0;
+    test->tree2 = 0;
+
+    //printf("%s", *test);
+    return test;
 }
 //a string that contains entire line from the file, where contents will be copied to, a column number

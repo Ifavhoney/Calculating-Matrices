@@ -6,21 +6,23 @@
 
 #define ARRAY_SIZE 9700000
 //returns a pointer to an array of struct name basics
-struct name_basics *
+
+struct arrayStruct *
 get_name(char *value)
 {
     char *ptr = value;
     /* Using relative path holds the full path e.g  "./files/name.basics.tsv" */
     //strcat(ptr, "/name.basics.tsv");
 
-    strcat(ptr, "/name.basics.tsv");
+    //  strcat(ptr, "/name.basicss.tsv");
     //Got the length
     long length;
     length = strlen(ptr);
 
     //pointer array to return a pointer of type name basics
     struct name_basics *array;
-    struct name_basics *test;
+    struct arrayStruct *test;
+
     // array = malloc(strlen(ptr) + 1);
     static int hi[ARRAY_SIZE];
     char buff[256];
@@ -56,7 +58,8 @@ get_name(char *value)
             i++;
         }
         array = malloc(length);
-        //array = malloc(strlen(buff) + 1)
+        //storing the size
+
         i = 0;
         fseek(fp, 0, SEEK_SET);
         while (fgets(buff, 256, fp) != NULL)
@@ -70,6 +73,7 @@ get_name(char *value)
                 if (hi[i] == 0)
                 {
                     //then ok
+                    //  array[i].nconst = NULL;
                     array[i].nconst = NULL;
                 }
                 else
@@ -120,13 +124,20 @@ get_name(char *value)
     {
         printf("unable to open file");
     }
-
     //printf("array @ 1 is %s", array[4].primaryName);
     //free(array);
 
     /*Because it reaches the end of the array that I cannot free */
+    printf("done");
     fclose(fp);
-    return array;
+    test = malloc(length);
+
+    test->size = i / 2;
+    test->address = array;
+    test->tree1 = 0;
+    test->tree2 = 0;
+    //printf("%s", *test);
+    return test;
 }
 //a string that contains entire line from the file, where contents will be copied to, a column number
 

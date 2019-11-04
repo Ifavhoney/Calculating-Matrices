@@ -10,6 +10,10 @@
 #include <stdlib.h>
 
 #include "common.h"
+#include "binary.h"
+
+
+
 
 //calculates #of rows based on file
 int totalRows(FILE *fp){
