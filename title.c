@@ -10,15 +10,12 @@ get_title(char *value)
 {
     char *ptr = value;
     /* Using relative path holds the full path e.g  "./files/name.basics.tsv" */
-    //strcat(ptr, "/name.basics.tsv");
 
     strcat(ptr, "/title.basics.tsv");
-    //Got the length
     long length;
     length = strlen(ptr);
-    struct arrayStruct *test = NULL;
+    struct arrayStruct *test;
 
-    //pointer array to return a pointer of type name basics
     struct title_basics *array;
 
     static int hi[ARRAY_SIZE];
@@ -28,12 +25,11 @@ get_title(char *value)
     char buff[256];
     FILE *fp;
 
-    //"/files/txt"
     fp = fopen(ptr, "r");
     printf("ptr is %s\n", ptr);
     int i = 0;
 
-    int total = totalRows(fp); // 4
+    int total = totalRows(fp);
 
     if (fp != NULL)
     {
@@ -46,7 +42,6 @@ get_title(char *value)
             if (strstr(result, "0") != NULL)
             {
 
-                //1 for found
                 hi2[i] = 1;
             }
             else
@@ -84,22 +79,17 @@ get_title(char *value)
         while (fgets(buff, 256, fp) != NULL)
         {
 
-            //Use column to pull out the nconst and primary name
-
             if (i <= total)
             {
                 char *result1 = get_column(buff, 0);
                 if (hi[i] == 0 || hi2[i] == 0)
                 {
-                    //then ok
                     array[i].tconst = NULL;
                 }
                 else
                 {
 
                     array[i].tconst = result1;
-
-                    //switch 2
                 }
             }
 
@@ -109,13 +99,11 @@ get_title(char *value)
                 char *result2 = get_column(buff, 1);
                 if (hi[i - total - 1] == 0 || hi2[i - total - 1] == 0)
                 {
-                    //then ok
                     array[i - total - 1].primaryTitle = NULL;
                 }
                 else
                 {
 
-                    //switch 2
                     array[i - total - 1].primaryTitle = result2;
                 }
             }
@@ -126,15 +114,7 @@ get_title(char *value)
                 fseek(fp, 0, SEEK_SET);
             }
 
-            //use strdup function to malloc memory
-
-            //  array[0].nconst= strdup(result1);
-            //increments to next
-            //  array[1].primaryName = strdup(result2);
-            //array++;
             i++;
-
-            // break;
         }
     }
     else
@@ -142,7 +122,6 @@ get_title(char *value)
         printf("unable to open file");
     }
 
-    //printf("array @ 1 is %s", array[4].primaryName);
     test = malloc(sizeof(array));
 
     test->size = i / 2;
@@ -150,7 +129,5 @@ get_title(char *value)
     test->tree1 = 0;
     test->tree2 = 0;
 
-    //printf("%s", *test);
     return test;
 }
-//a string that contains entire line from the file, where contents will be copied to, a column number
