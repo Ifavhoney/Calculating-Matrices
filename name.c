@@ -14,8 +14,6 @@ get_name(char *value)
     strcat(ptr, value);
     strcat(ptr, "/name.basicss.tsv");
 
-    //strcpy it
-
     long length;
     length = strlen(ptr);
 
