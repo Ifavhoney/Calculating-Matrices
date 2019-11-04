@@ -11,12 +11,16 @@ struct arrayStruct
     get_title_principals(char *value)
 {
     char *ptr = value;
+    /* Using relative path holds the full path e.g  "./files/name.basics.tsv" */
+    //strcat(ptr, "/name.basics.tsv");
 
     strcat(ptr, "/title.principalss.tsv");
+    //Got the length
     long length;
     length = strlen(ptr);
     struct arrayStruct *test = NULL;
 
+    //pointer array to return a pointer of type name basics
     struct title_principals *array;
 
     static int hi[ARRAY_SIZE];
@@ -24,17 +28,20 @@ struct arrayStruct
     char buff[256];
     FILE *fp;
 
+    //"/files/txt"
     fp = fopen(ptr, "r");
     printf("ptr is %s\n", ptr);
     int i = 0;
 
-    int total = totalRows(fp);
+    int total = totalRows(fp); // 4
 
     if (fp != NULL)
     {
 
         while (fgets(buff, 256, fp) != NULL)
         {
+            //why dpes it work over here? and segfaults?
+            //memory not allocated in time, therefore best to allocaste BEFORE getting to isnertion
 
             length += strlen(buff);
 
@@ -46,6 +53,7 @@ struct arrayStruct
             }
             else
             {
+                //SEE?? NOT ENOUGH SPACE
                 hi[i] = 0;
             }
             i++;
@@ -69,6 +77,8 @@ struct arrayStruct
             {
 
                 array[i].characters = result;
+
+                //switch 2
             }
             i++;
         }
@@ -79,17 +89,22 @@ struct arrayStruct
         while (fgets(buff, 256, fp) != NULL)
         {
 
+            //Use column to pull out the nconst and primary name
+
             if (i <= total)
             {
                 char *result1 = get_column(buff, 0);
                 if (hi[i] == 0)
                 {
+                    //then ok
                     array[i].tconst = NULL;
                 }
                 else
                 {
 
                     array[i].tconst = result1;
+
+                    //switch 2
                 }
             }
 
@@ -99,11 +114,13 @@ struct arrayStruct
                 char *result2 = get_column(buff, 2);
                 if (hi[i - total - 1] == 0)
                 {
+                    //then ok
                     array[i - total - 1].nconst = NULL;
                 }
                 else
                 {
 
+                    //switch 2
                     array[i - total - 1].nconst = result2;
                 }
             }
@@ -113,13 +130,23 @@ struct arrayStruct
                 fseek(fp, 0, SEEK_SET);
             }
 
+            //use strdup function to malloc memory
+
+            //  array[0].nconst= strdup(result1);
+            //increments to next
+            //  array[1].primaryName = strdup(result2);
+            //array++;
             i++;
+
+            // break;
         }
     }
     else
     {
         printf("unable to open file");
     }
+
+    //printf("array @ 1 is %s", array[4].primaryName);
 
     fclose(fp);
 
@@ -130,5 +157,7 @@ struct arrayStruct
     test->tree1 = 0;
     test->tree2 = 0;
 
+    //printf("%s", *test);
     return test;
 }
+//a string that contains entire line from the file, where contents will be copied to, a column number

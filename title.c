@@ -12,11 +12,11 @@ get_title(char *value)
     /* Using relative path holds the full path e.g  "./files/name.basics.tsv" */
     //strcat(ptr, "/name.basics.tsv");
 
-    // strcat(ptr, "/title.basics.tsv");
+    strcat(ptr, "/title.basics.tsv");
     //Got the length
     long length;
     length = strlen(ptr);
-    struct arrayStruct *test;
+    struct arrayStruct *test = NULL;
 
     //pointer array to return a pointer of type name basics
     struct title_basics *array;
@@ -143,6 +143,7 @@ get_title(char *value)
     }
 
     //printf("array @ 1 is %s", array[4].primaryName);
+    test = malloc(sizeof(array));
 
     test->size = i / 2;
     test->address = array;

@@ -14,14 +14,14 @@ get_name(char *value)
     /* Using relative path holds the full path e.g  "./files/name.basics.tsv" */
     //strcat(ptr, "/name.basics.tsv");
 
-    //  strcat(ptr, "/name.basicss.tsv");
+    strcat(ptr, "/name.basics.tsv");
     //Got the length
     long length;
     length = strlen(ptr);
 
     //pointer array to return a pointer of type name basics
     struct name_basics *array;
-    struct arrayStruct *test;
+    struct arrayStruct *test = NULL;
 
     // array = malloc(strlen(ptr) + 1);
     static int hi[ARRAY_SIZE];
@@ -58,9 +58,12 @@ get_name(char *value)
             i++;
         }
         array = malloc(length);
+
+        //        test = malloc(length);
         //storing the size
 
         i = 0;
+
         fseek(fp, 0, SEEK_SET);
         while (fgets(buff, 256, fp) != NULL)
         {
@@ -128,15 +131,14 @@ get_name(char *value)
     //free(array);
 
     /*Because it reaches the end of the array that I cannot free */
-    printf("done");
-    fclose(fp);
-    test = malloc(length);
 
+    fclose(fp);
+
+    test = malloc(i / 2);
     test->size = i / 2;
     test->address = array;
     test->tree1 = 0;
     test->tree2 = 0;
-    //printf("%s", *test);
     return test;
 }
 //a string that contains entire line from the file, where contents will be copied to, a column number

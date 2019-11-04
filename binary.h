@@ -14,8 +14,7 @@
 
 //xI will create a standard structure for all my binary trees.  That structure will have a char *key pointer, and void *data pointer, and two child pointers
 
-struct node
-{
+struct node {
     //e.g Primaryname
     char *key;
     //address
@@ -25,11 +24,19 @@ struct node
     struct node *right;
 };
 
-//create a function that finds a nconst in a tree? ok
-struct node *find_nconst(struct node *root, char *value);
+struct stackNode{
+    struct node *tree;
+    struct stackNode *next;
+};
 
+/*Stack*/
 void insert(struct node **root, char *key, void *addressOf);
-char *reverse(char *key);
-void printInorder(struct node *node);
+
+
+//create a function that finds a nconst in a tree? ok
+struct node *find_nconst(struct node *root, char *value );
+
+ char *reverse(char *key);
+void printInorder(struct node* node);
 
 #endif /* binary_h */

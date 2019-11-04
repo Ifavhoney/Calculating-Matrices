@@ -32,7 +32,7 @@ int main(int argc, char **argv)
     /*File Structs*/
 
     struct arrayStruct *ptr = (struct arrayStruct *)malloc(sizeof(struct arrayStruct));
-    ptr = get_name("name.basicss.tsv");
+    ptr = get_name(argv[1]);
 
     struct arrayStruct *ptr2 = (struct arrayStruct *)malloc(sizeof(struct arrayStruct));
     ptr2 = get_title("title.basicss.tsv");
@@ -42,47 +42,49 @@ int main(int argc, char **argv)
 
     //struct name_basics *name_basics = (struct name_basics *)ptr->address;
     struct name_basics *name_basicss = (struct name_basics *)ptr->address;
-    // struct title_principals *title_principalss = (struct title_principals *)ptr->address;
     struct title_basics *title_basicss = (struct title_basics *)ptr2->address;
-    struct title_principals *title_principalss = (struct title_principals *)ptr3->address;
+    struct title_principals *title_principalss = (struct title_principalss *)ptr3->address;
 
-    /*Create a program that looks up entries in thje name basics array and determine the corresponding nconst values*/
-
-    struct node *result = find_nconst(treeKeyNconst, "nm0000007");
-
+    printf("%d", ptr->size);
+    name_basicss++;
     for (i = 0; i < ptr->size; i++)
     {
-        i++;
         name_basicss++;
+
         if (name_basicss->nconst != NULL)
         {
+            //printf("%s", name_basicss ->nconst);
+            // printf("%s", name_basicss ->primaryName);
 
             insert(&treeKeyNconst, name_basicss->nconst, ptr);
             insert(&treeKeyName, name_basicss->primaryName, ptr);
         }
     }
+
     free(ptr);
 
-    /*Title*/
+    printInorder(treeKeyNconst);
+
+    /*Title 
+    title_basicss++;
 
     for (i = 0; i < ptr2->size; i++)
     {
-        i++;
         title_basicss++;
         if (title_basicss->tconst != NULL)
         {
-            printf("%d\t", i);
 
-            printf("%s", title_basicss->primaryTitle);
-            printf("%s", title_basicss->primaryTitle);
             insert(&treeTitleTconst, title_basicss->tconst, ptr);
             insert(&treeTitleTitle, title_basicss->primaryTitle, ptr);
         }
     }
+    */
 
+    printInorder(treeTitleTconst);
+
+    title_principalss++;
     for (i = 0; i < ptr3->size; i++)
     {
-        i++;
         title_principalss++;
         if (title_principalss->nconst != NULL)
         {
@@ -91,11 +93,8 @@ int main(int argc, char **argv)
             insert(&treePrincipalsNconst, title_principalss->nconst, ptr);
         }
     }
+    printInorder(treePrincipalsTconst);
 
-    printf("\n");
-    printInorder(treeTitleTconst);
-
-    printf("\n");
     // printf("%s", result ->key );
     // struct title_basics *ptr2 = get_title(argv[2]);
 

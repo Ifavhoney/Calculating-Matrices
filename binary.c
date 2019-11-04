@@ -10,19 +10,24 @@
 
 struct node *find_nconst(struct node *root, char *value)
 {
+
+    value = reverse(value);
     if (root != NULL)
     {
         int result = strcmp(value, root->key);
 
-        if (result == 0)
+        if (result == 0 || root->key)
         {
+
             return root;
         }
         else
         {
 
+            int result = strcmp(value, root->key);
             if (result > 0)
             {
+
                 find_nconst(root->right, value);
             }
             else
@@ -33,6 +38,7 @@ struct node *find_nconst(struct node *root, char *value)
     }
     else
     {
+
         return NULL;
     }
     return NULL;
@@ -40,15 +46,14 @@ struct node *find_nconst(struct node *root, char *value)
 
 char *reverse(char *key)
 {
+
     long length = strlen(key);
-    char result[length];
     char *submit = malloc(length);
 
     int i = 0;
     int j = 0;
     while (i <= length - 1)
     {
-        printf(" %c \n", *key);
         key++;
 
         i++;
@@ -58,14 +63,16 @@ char *reverse(char *key)
             {
                 key--;
                 j++;
-                result[j] = *key;
+
+                strncat(submit, key, 1);
             }
+            printf("\n");
             break;
         }
     }
+    strncat(submit, "\0", 1);
+
     //add terminating character after
-    result[j + 1] = '\0';
-    strcpy(submit, result);
     return submit;
 }
 
@@ -108,6 +115,13 @@ void insert(struct node **root, char *key, void *addressOf)
 
     //inserts
 }
+
+/*Pointer behind Temp*/
+
+//now find a way to add to tree depending on length
+
+//inserts
+
 void printInorder(struct node *node)
 {
     if (node == NULL)
