@@ -10,13 +10,11 @@ struct arrayStruct *
 get_name(char *value)
 {
     char *ptr = malloc(strlen(value) + strlen("/name.basicss.tsv") + 1);
+    char *result = NULL;
 
-    strcat(ptr, value);
-    strcat(ptr, "/name.basicss.tsv");
-
-    long length;
-    length = strlen(ptr);
-
+    long length = strlen(ptr);
+    int i;
+    int total;
     struct name_basics *array;
     struct arrayStruct *test;
 
@@ -24,11 +22,11 @@ get_name(char *value)
     char buff[256];
     FILE *fp;
 
+    strcat(ptr, value);
+    strcat(ptr, "/name.basicss.tsv");
     fp = fopen(ptr, "r");
-
-    int i = 0;
-
-    int total = totalRows(fp);
+    i = 0;
+    total = totalRows(fp);
 
     if (fp != NULL)
     {
@@ -38,7 +36,7 @@ get_name(char *value)
         {
             length += strlen(buff);
 
-            char *result = get_column(buff, 4);
+            result = get_column(buff, 4);
 
             if (strstr(result, "actor") != NULL || strstr(result, "actress") != NULL)
             {

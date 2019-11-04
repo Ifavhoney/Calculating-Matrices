@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 {
     /* Other */
     int i = 0;
-    /*Tree Structs*/
+
     struct node *treeKeyName = NULL;
     struct node *treeKeyNconst = NULL;
 
@@ -96,22 +96,4 @@ int main(int argc, char *argv[])
         }
     }
     printInorder(treePrincipalsTconst);
-
-    /*free(ptr);
-*/
-
-    /*Title 
-
-
-    
-
-    /*
-
-    /*
-    free(ptr);
-    free(ptr2);
-    free(ptr3);
-    */
-
-    //
 }
