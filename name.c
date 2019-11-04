@@ -108,5 +108,6 @@ get_name(char *value)
     test->address = array;
     test->tree1 = 0;
     test->tree2 = 0;
+    printf("End of function!\n");
     return test;
 }
