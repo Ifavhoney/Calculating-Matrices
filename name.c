@@ -23,7 +23,7 @@ get_name(char *value)
     FILE *fp;
 
     strcat(ptr, value);
-    strcat(ptr, "/name.basicss.tsv");
+    strcat(ptr, "/name.basics.tsv");
     fp = fopen(ptr, "r");
     i = 0;
     total = totalRows(fp);

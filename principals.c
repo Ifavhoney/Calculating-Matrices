@@ -11,10 +11,10 @@ struct arrayStruct
     get_title_principals(char *value)
 {
 
-    char *ptr = malloc(strlen(value) + strlen("/title.principalss.tsv") + 1);
+    char *ptr = malloc(strlen(value) + strlen("/title.principals.tsv") + 1);
 
     strcat(ptr, value);
-    strcat(ptr, "/title.principalss.tsv");
+    strcat(ptr, "/title.principals.tsv");
 
     long length;
     length = strlen(ptr);

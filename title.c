@@ -10,10 +10,10 @@ get_title(char *value)
 
     /* Using relative path holds the full path e.g  "./files/name.basics.tsv" */
 
-    char *ptr = malloc(strlen(value) + strlen("/title.basicss.tsv") + 1);
+    char *ptr = malloc(strlen(value) + strlen("/title.basics.tsv") + 1);
 
     strcat(ptr, value);
-    strcat(ptr, "/title.basicss.tsv");
+    strcat(ptr, "/title.basics.tsv");
 
     long length;
     length = strlen(value);
