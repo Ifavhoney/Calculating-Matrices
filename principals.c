@@ -130,6 +130,6 @@ struct arrayStruct
     test->address = array;
     test->tree1 = 0;
     test->tree2 = 0;
-
+    printf("end of principals");
     return test;
 }

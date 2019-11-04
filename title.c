@@ -131,6 +131,6 @@ get_title(char *value)
     test->address = array;
     test->tree1 = 0;
     test->tree2 = 0;
-
+    printf("end of title");
     return test;
 }
