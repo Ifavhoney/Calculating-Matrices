@@ -1,4 +1,8 @@
 
+/*
+full name: Jason Eddy N'Guessan, student ID number: 1079936, and uoguelph e-mail: jnguessa@uoguelph.ca
+ */
+
 #ifndef name_h
 #define name_h
 

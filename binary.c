@@ -1,6 +1,8 @@
+/*
+full name: Jason Eddy N'Guessan, student ID number: 1079936, and uoguelph e-mail: jnguessa@uoguelph.ca
+ */
 
 #include "binary.h"
-
 struct node *find_nconst(struct node *root, char *value)
 {
 

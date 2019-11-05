@@ -1,3 +1,6 @@
+/*
+full name: Jason Eddy N'Guessan, student ID number: 1079936, and uoguelph e-mail: jnguessa@uoguelph.ca
+ */
 
 #include "name.h"
 #include "common.h"
@@ -9,21 +12,23 @@
 struct arrayStruct *
 get_name(char *value)
 {
-    char *ptr = malloc(strlen(value) + strlen("/name.basics.tsv") + 1);
     char *result = NULL;
-
-    long length = strlen(ptr);
+    FILE *fp= NULL;
+    char buff[256];
+    long length; 
     int i;
     int total;
-    struct name_basics *array;
-    struct arrayStruct *test;
+    char *ptr;
+    struct name_basics *array = NULL;
+    struct arrayStruct *test = NULL;
 
     static int hi[ARRAY_SIZE];
-    char buff[256];
-    FILE *fp;
-
+   
+    ptr = malloc(strlen(value) + strlen("/name.basics.tsv") + 1);
     strcat(ptr, value);
     strcat(ptr, "/name.basics.tsv");
+   length = strlen(ptr);
+
     fp = fopen(ptr, "r");
     i = 0;
     total = totalRows(fp);
@@ -106,6 +111,5 @@ get_name(char *value)
     test->address = array;
     test->tree1 = 0;
     test->tree2 = 0;
-    printf("End of function!\n");
     return test;
 }

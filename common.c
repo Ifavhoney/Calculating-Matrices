@@ -1,3 +1,7 @@
+/*
+full name: Jason Eddy N'Guessan, student ID number: 1079936, and uoguelph e-mail: jnguessa@uoguelph.ca
+ */
+
 #include <string.h>
 #include <stdlib.h>
 
@@ -20,8 +24,9 @@ char *get_column(char *src, int colNum)
     char *dst = malloc(strlen(src));
     const char delimiter[] = "\t";
     char *tmp;
+    int num;
     tmp = strtok(src, delimiter);
-    int num = 0;
+    num = 0;
     while (tmp != NULL)
     {
 

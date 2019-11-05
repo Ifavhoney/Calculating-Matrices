@@ -1,3 +1,7 @@
+/*
+full name: Jason Eddy N'Guessan, student ID number: 1079936, and uoguelph e-mail: jnguessa@uoguelph.ca
+ */
+
 #ifndef common_h
 #define common_h
 
@@ -12,7 +16,7 @@ struct arrayStruct
     struct node **tree2;
 };
 
-void add_new_word(const char *w);
 char *get_column(char *src, int colNum);
 int totalRows(FILE *fp);
+
 #endif /* common_h */

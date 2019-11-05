@@ -1,3 +1,7 @@
+/*
+full name: Jason Eddy N'Guessan, student ID number: 1079936, and uoguelph e-mail: jnguessa@uoguelph.ca
+ */
+
 #ifndef binary_h
 #define binary_h
 #include <stdio.h>

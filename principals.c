@@ -1,3 +1,7 @@
+/*
+full name: Jason Eddy N'Guessan, student ID number: 1079936, and uoguelph e-mail: jnguessa@uoguelph.ca
+ */
+
 #include "principals.h"
 #include "common.h"
 
@@ -10,29 +14,32 @@ struct arrayStruct
     *
     get_title_principals(char *value)
 {
+    long length;
+    char *result;
+    char *result1;
+    char *result2;
+    struct arrayStruct *test = NULL;
+    FILE *fp = NULL;
+    char buff[256];
+    int i;
+    int total; 
+
+    struct title_principals *array = NULL;
+    static int hi[ARRAY_SIZE];
 
     char *ptr = malloc(strlen(value) + strlen("/title.principals.tsv") + 1);
 
     strcat(ptr, value);
     strcat(ptr, "/title.principals.tsv");
 
-    long length;
+
+
     length = strlen(ptr);
-    struct arrayStruct *test = NULL;
 
-    struct title_principals *array;
-
-    static int hi[ARRAY_SIZE];
-    static int h2[ARRAY_SIZE];
-
-    char buff[256];
-    FILE *fp;
-
+    i = 0;
     fp = fopen(ptr, "r");
     printf("ptr is %s\n", ptr);
-    int i = 0;
-
-    int total = totalRows(fp);
+    total = totalRows(fp);
 
     if (fp != NULL)
     {
@@ -41,9 +48,9 @@ struct arrayStruct
 
             length += strlen(buff);
 
-            char *result = get_column(buff, 3);
+            result = get_column(buff, 3);
 
-            if (strstr(result, "actor") != NULL)
+            if (strstr(result, "actor") != NULL || strstr(result, "actress") != NULL)
             {
                 hi[i] = 1;
             }
@@ -53,7 +60,7 @@ struct arrayStruct
             }
             i++;
         }
-        array = malloc(sizeof(struct title_principals) * i); /*array = malloc(length)*/
+        array = malloc(sizeof(struct title_principals) * i);
 
         i = 0;
         fseek(fp, 0, SEEK_SET);
@@ -63,7 +70,7 @@ struct arrayStruct
 
             if (i <= total)
             {
-                char *result1 = get_column(buff, 0);
+               result1 = get_column(buff, 0);
                 if (hi[i] == 0)
                 {
                     array[i].tconst = NULL;
@@ -78,7 +85,7 @@ struct arrayStruct
             else
             {
 
-                char *result2 = get_column(buff, 2);
+               result2 = get_column(buff, 2);
                 if (hi[i - total - 1] == 0)
                 {
                     array[i - total - 1].nconst = NULL;

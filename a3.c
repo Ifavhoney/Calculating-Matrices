@@ -1,3 +1,7 @@
+/*
+full name: Jason Eddy N'Guessan, student ID number: 1079936, and uoguelph e-mail: jnguessa@uoguelph.ca
+ */
+
 #include <stdio.h>
 #include "title.h"
 #include "binary.h"
@@ -48,6 +52,7 @@ int main(int argc, char *argv[])
     title_basicss = (struct title_basics *)ptr2->address;
 
     title_principalss = (struct title_principals *)ptr3->address;
+    printf("\n Name Basics tree\n");
 
     for (i = 0; i < ptr->size; i++)
     {
@@ -80,7 +85,7 @@ int main(int argc, char *argv[])
     printf("\n");
     printInorder(treeTitleTitle);
 
-    printf("\n\nPRINCIPALS tree\n");
+    printf("\n\nPrincipals tree\n");
 
     /*title_principalss++;*/
     for (i = 0; i < ptr3->size; i++)
@@ -89,7 +94,6 @@ int main(int argc, char *argv[])
         title_principalss++;
         if (title_principalss->nconst != NULL && title_principalss->tconst != NULL )
         {
-        printf("%s\n", title_principalss->tconst);
 
             insert(&treePrincipalsTconst, title_principalss->tconst, ptr3);
             insert(&treePrincipalsNconst, title_principalss->nconst, ptr3);

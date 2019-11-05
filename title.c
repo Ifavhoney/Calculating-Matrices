@@ -1,3 +1,7 @@
+/*
+full name: Jason Eddy N'Guessan, student ID number: 1079936, and uoguelph e-mail: jnguessa@uoguelph.ca
+ */
+
 #include "title.h"
 #include "common.h"
 #include <string.h>
@@ -7,7 +11,19 @@
 struct arrayStruct *
 get_title(char *value)
 {
+    long length;
+    char *result;
+    char *result1;
+    char *result2;
+    struct arrayStruct *test = NULL;
+    char buff[256];
+    struct title_basics *array = NULL;
+ FILE *fp;
+  int i;
+  int total;
+    static int hi[ARRAY_SIZE];
 
+    static int hi2[ARRAY_SIZE];
     /* Using relative path holds the full path e.g  "./files/name.basics.tsv" */
 
     char *ptr = malloc(strlen(value) + strlen("/title.basics.tsv") + 1);
@@ -15,23 +31,15 @@ get_title(char *value)
     strcat(ptr, value);
     strcat(ptr, "/title.basics.tsv");
 
-    long length;
     length = strlen(value);
-    struct arrayStruct *test;
+    
 
-    struct title_basics *array;
-
-    static int hi[ARRAY_SIZE];
-
-    static int hi2[ARRAY_SIZE];
-
-    char buff[256];
-    FILE *fp;
+   
 
     fp = fopen(ptr, "r");
-    int i = 0;
+   i = 0;
 
-    int total = totalRows(fp);
+    total = totalRows(fp);
 
     if (fp != NULL)
     {
@@ -40,7 +48,7 @@ get_title(char *value)
         while (fgets(buff, 256, fp) != NULL)
         {
             length += strlen(buff);
-            char *result = get_column(buff, 4);
+            result = get_column(buff, 4);
 
             if (strstr(result, "0") != NULL)
             {
@@ -62,7 +70,7 @@ get_title(char *value)
         while (fgets(buff, 256, fp) != NULL)
         {
 
-            char *result = get_column(buff, 1);
+            result = get_column(buff, 1);
 
             if (strstr(result, "movie") != NULL)
             {
@@ -84,7 +92,7 @@ get_title(char *value)
 
             if (i <= total)
             {
-                char *result1 = get_column(buff, 0);
+                 result1 = get_column(buff, 0);
                 if (hi[i] == 0 || hi2[i] == 0)
                 {
                     array[i].tconst = NULL;
@@ -99,7 +107,7 @@ get_title(char *value)
             else
             {
 
-                char *result2 = get_column(buff, 1);
+               result2 = get_column(buff, 1);
                 if (hi[i - total - 1] == 0 || hi2[i - total - 1] == 0)
                 {
                     array[i - total - 1].primaryTitle = NULL;
