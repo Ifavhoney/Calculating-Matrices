@@ -14,7 +14,6 @@ full name: Jason Eddy N'Guessan, student ID number: 1079936, and uoguelph e-mail
 
 int main(int argc, char *argv[])
 {
-    /* Other */
     int i = 0;
 
     struct node *treeKeyName = NULL;
@@ -28,6 +27,7 @@ int main(int argc, char *argv[])
 
     struct node *treePrincipalsNconst = NULL;
 
+   /* struct node *findNConst = NULL; */
     struct arrayStruct *ptr;
     struct arrayStruct *ptr2;
 
@@ -103,5 +103,9 @@ int main(int argc, char *argv[])
     printInorder(treePrincipalsTconst);
     printf("\n");
     printInorder(treePrincipalsNconst);
+
+
+    /*Program findNConst = find_nconst(treeKeyNconst, "nm0000003"); */
+    
 
 }
