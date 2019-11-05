@@ -49,8 +49,6 @@ int main(int argc, char *argv[])
 
     title_principalss = (struct title_principals *)ptr3->address;
 
-    printf("%ld\n", ptr->size);
-
     for (i = 0; i < ptr->size; i++)
     {
         name_basicss++;
@@ -59,41 +57,47 @@ int main(int argc, char *argv[])
         {
 
             insert(&treeKeyNconst, name_basicss->nconst, ptr);
-            insert(&treeKeyName, name_basicss->primaryName, ptr);
+            insert(&treeKeyName, reverse(name_basicss->primaryName), ptr);
         }
     }
 
     printInorder(treeKeyNconst);
+    printf("\n");
+    printInorder(treeKeyName);
+    printf("\n\nTitles tree\n");
+  
 
-    printf("\nTITLE tree\n");
-
-    for (i = 0; i < ptr2->size; i++)
+    for (i = 0; i < ptr2->size - 1; i++)
     {
         title_basicss++;
-        if (title_basicss->tconst != NULL)
+        if (title_basicss != NULL && title_basicss->tconst != NULL)
         {
-
-            insert(&treeTitleTconst, title_basicss->tconst, ptr);
-            insert(&treeTitleTitle, title_basicss->primaryTitle, ptr);
+            insert(&treeTitleTconst, title_basicss->tconst, ptr2);
+            insert(&treeTitleTitle, reverse(title_basicss->primaryTitle), ptr2);
         }
     }
     printInorder(treeTitleTconst);
+    printf("\n");
+    printInorder(treeTitleTitle);
 
-    printf("\n PRINCIPALS tree\n");
-    printf("\n%ld\n", ptr3->size);
+    printf("\n\nPRINCIPALS tree\n");
 
     /*title_principalss++;*/
     for (i = 0; i < ptr3->size; i++)
     {
+    
         title_principalss++;
-        printf("%s\n", title_principalss->tconst);
-        if (title_principalss->nconst != NULL)
+        if (title_principalss->nconst != NULL && title_principalss->tconst != NULL )
         {
-            printf("Inserting....\n");
+        printf("%s\n", title_principalss->tconst);
 
-            insert(&treePrincipalsTconst, title_principalss->tconst, ptr);
-            insert(&treePrincipalsNconst, title_principalss->nconst, ptr);
+            insert(&treePrincipalsTconst, title_principalss->tconst, ptr3);
+            insert(&treePrincipalsNconst, title_principalss->nconst, ptr3);
         }
     }
+
     printInorder(treePrincipalsTconst);
+    printf("\n");
+    printInorder(treePrincipalsNconst);
+
 }

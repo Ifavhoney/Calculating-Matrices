@@ -79,7 +79,6 @@ void insert(struct node **root, char *key, void *addressOf)
 
     if (*root == NULL)
     {
-
         *root = node;
         return;
     }

@@ -54,7 +54,7 @@ get_title(char *value)
             }
             i++;
         }
-        array = malloc(sizeof(char) * length);
+        array = malloc(sizeof(struct title_basics) * i);
 
         i = 0;
         fseek(fp, 0, SEEK_SET);
@@ -125,12 +125,11 @@ get_title(char *value)
         printf("unable to open file");
     }
 
-    test = malloc(sizeof(array));
+    test = (struct arrayStruct *)malloc(sizeof(struct arrayStruct)); /*malloc(sizeof(array));*/
 
     test->size = i / 2;
     test->address = array;
     test->tree1 = 0;
     test->tree2 = 0;
-    printf("end of title");
     return test;
 }

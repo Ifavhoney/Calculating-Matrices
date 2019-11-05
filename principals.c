@@ -23,6 +23,7 @@ struct arrayStruct
     struct title_principals *array;
 
     static int hi[ARRAY_SIZE];
+    static int h2[ARRAY_SIZE];
 
     char buff[256];
     FILE *fp;
@@ -52,27 +53,7 @@ struct arrayStruct
             }
             i++;
         }
-        array = malloc(length);
-
-        i = 0;
-        fseek(fp, 0, SEEK_SET);
-
-        while (fgets(buff, 256, fp) != NULL)
-        {
-
-            char *result = get_column(buff, 5);
-
-            if (hi[i] == 0)
-            {
-                array[i].characters = NULL;
-            }
-            else
-            {
-
-                array[i].characters = result;
-            }
-            i++;
-        }
+        array = malloc(sizeof(struct title_principals) * i); /*array = malloc(length)*/
 
         i = 0;
         fseek(fp, 0, SEEK_SET);
@@ -124,12 +105,11 @@ struct arrayStruct
 
     fclose(fp);
 
-    test = malloc(sizeof(array));
+    test = (struct arrayStruct *)malloc(sizeof(struct arrayStruct)); /*malloc(sizeof(array));*/
 
     test->size = i / 2;
     test->address = array;
     test->tree1 = 0;
     test->tree2 = 0;
-    printf("end of principals");
     return test;
 }

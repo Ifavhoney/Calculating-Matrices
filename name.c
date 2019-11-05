@@ -9,7 +9,7 @@
 struct arrayStruct *
 get_name(char *value)
 {
-    char *ptr = malloc(strlen(value) + strlen("/name.basicss.tsv") + 1);
+    char *ptr = malloc(strlen(value) + strlen("/name.basics.tsv") + 1);
     char *result = NULL;
 
     long length = strlen(ptr);
@@ -30,8 +30,6 @@ get_name(char *value)
 
     if (fp != NULL)
     {
-        printf("ptr is %s\n", ptr);
-
         while (fgets(buff, 256, fp) != NULL)
         {
             length += strlen(buff);
@@ -103,7 +101,7 @@ get_name(char *value)
     }
 
     fclose(fp);
-    test = malloc(i / 2);
+    test = (struct arrayStruct *)malloc(sizeof(struct arrayStruct)); /*malloc(i / 2);*/
     test->size = i / 2;
     test->address = array;
     test->tree1 = 0;
