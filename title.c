@@ -45,7 +45,7 @@ get_title(char *value)
     {
         printf("ptr is %s\n", ptr);
 
-        while (fgets(buff, 256, fp) != NULL)
+        while (fgets(buff, 256, fp) != NULL && i <= ARRAY_SIZE)
         {
             length += strlen(buff);
             result = get_column(buff, 4);

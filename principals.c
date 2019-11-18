@@ -27,10 +27,10 @@ struct arrayStruct
     struct title_principals *array = NULL;
     static int hi[ARRAY_SIZE];
 
-    char *ptr = malloc(strlen(value) + strlen("/title.principals.tsv") + 1);
+    char *ptr = malloc(strlen(value) + strlen("/title.principalss.tsv") + 1);
 
     strcat(ptr, value);
-    strcat(ptr, "/title.principals.tsv");
+    strcat(ptr, "/title.principalss.tsv");
 
 
 
@@ -43,7 +43,7 @@ struct arrayStruct
 
     if (fp != NULL)
     {
-        while (fgets(buff, 256, fp) != NULL)
+        while (fgets(buff, 256, fp) != NULL && i < ARRAY_SIZE)
         {
 
             length += strlen(buff);

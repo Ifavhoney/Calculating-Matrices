@@ -86,7 +86,6 @@ int main(int argc, char *argv[])
 
     printf("\n\nPrincipals tree\n");
 
-    /*title_principalss++;*/
     for (i = 0; i < ptr3->size; i++)
     {
 
@@ -103,5 +102,4 @@ int main(int argc, char *argv[])
     printf("\n");
     printInorder(treePrincipalsNconst);
 
-    /*Program findNConst = find_nconst(treeKeyNconst, "nm0000003"); */
 }

@@ -24,7 +24,7 @@ get_name(char *value)
 
     static int hi[ARRAY_SIZE];
    
-    ptr = malloc(strlen(value) + strlen("/name.basics.tsv") + 1);
+    ptr = malloc(strlen(value) + strlen("/name.basicsss.tsv") + 1);
     strcat(ptr, value);
     strcat(ptr, "/name.basics.tsv");
    length = strlen(ptr);
@@ -35,7 +35,7 @@ get_name(char *value)
 
     if (fp != NULL)
     {
-        while (fgets(buff, 256, fp) != NULL)
+        while (fgets(buff, 256, fp) != NULL && i <= ARRAY_SIZE)
         {
             length += strlen(buff);
 
@@ -44,13 +44,15 @@ get_name(char *value)
             if (strstr(result, "actor") != NULL || strstr(result, "actress") != NULL)
             {
 
+
                 hi[i] = 1;
+                
             }
             else
             {
-
                 hi[i] = 0;
             }
+            
             i++;
         }
         array = malloc(length);
