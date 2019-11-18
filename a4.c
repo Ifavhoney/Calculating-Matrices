@@ -9,7 +9,6 @@ int array1[20000];
 int collisions;
 int duplicates;
 
-//lesson type L(Alphabet)#-123
 struct record
 {
     char *last_name;
@@ -305,7 +304,6 @@ long hash2(char *s, int max)
     column = 1;
     number = 0;
 
-    //NUMBER portion
     string = malloc(sizeof(strlen(s) * 2));
 
     preString = malloc(sizeof(strlen(s) * 2));
@@ -353,7 +351,6 @@ long hash2(char *s, int max)
         return labs(hash(result)) % max;
     }
 
-    //202675
     if (strstr(s, "G2") == s || strstr(s, "MD") == s || strstr(s, "JT") == s || strstr(s, "U2") || strstr(s, "O1") == s)
     {
         for (c = s; *c; c++)
@@ -1075,7 +1072,6 @@ long hash2(char *s, int max)
         for (c = s; (*c); c++)
         {
 
-            //key
             number += hash1Red5(*c, max) * column;
             column *= 27;
         }
@@ -1432,8 +1428,6 @@ long hash2(char *s, int max)
 
                 sprintf(string, "%d", asci);
 
-                // strncat(string, , 1);
-
                 continue;
             }
 
@@ -1455,7 +1449,6 @@ long hash2(char *s, int max)
             }
         }
 
-        //117818
         strcat(string, preString);
         result = strtol(string, &end, 10);
         printf("||%s: %d||\n", s, result);
@@ -1471,7 +1464,6 @@ long hash2(char *s, int max)
         for (c = s; (*c); c++)
         {
 
-            //key
             number += hash1Red5(*c, max) * column;
             column *= 27;
         }
@@ -1613,9 +1605,7 @@ void build_hash(struct array *arrptr, int hash_size)
     int idx, line;
     int duplicate;
 
-    //my size
     arrptr->hash_size = hash_size;
-    //my hash table
     arrptr->hash = malloc(sizeof(struct record *) * arrptr->hash_size);
 
     for (idx = 0; idx < arrptr->hash_size; idx++)
@@ -1630,7 +1620,6 @@ void build_hash(struct array *arrptr, int hash_size)
         idx = hash2((arrptr->arr)[line].license_no, arrptr->hash_size);
 
         duplicate = 0;
-        //meaning that slot is taken e.g -1
         while ((arrptr->hash)[idx] != NULL)
         {
             if (strcmp(((arrptr->hash)[idx])->license_no,
