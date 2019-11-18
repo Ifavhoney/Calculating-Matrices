@@ -1505,7 +1505,7 @@ struct array *read_records()
     arrptr = malloc(sizeof(struct array));
     arrptr->nelements = 0;
 
-    fp = fopen("Professional_and_Occupational_Licensing.csv", "r");
+    fp = fopen("Professional_and_Occupational_Licensing1.csv", "r");
     fgets(buffer, BUFFER_SIZE, fp);
 
     while (!feof(fp))
