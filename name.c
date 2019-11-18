@@ -28,7 +28,7 @@ get_name(char *value)
     strcat(ptr, value);
     strcat(ptr, "/name.basics.tsv");
    length = strlen(ptr);
-
+    printf("PTR: %s\n", ptr);
     fp = fopen(ptr, "r");
     i = 0;
     total = totalRows(fp);

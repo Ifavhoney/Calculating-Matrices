@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 
     struct node *treePrincipalsNconst = NULL;
 
-   /* struct node *findNConst = NULL; */
+    /* struct node *findNConst = NULL; */
     struct arrayStruct *ptr;
     struct arrayStruct *ptr2;
 
@@ -70,7 +70,6 @@ int main(int argc, char *argv[])
     printf("\n");
     printInorder(treeKeyName);
     printf("\n\nTitles tree\n");
-  
 
     for (i = 0; i < ptr2->size - 1; i++)
     {
@@ -90,9 +89,9 @@ int main(int argc, char *argv[])
     /*title_principalss++;*/
     for (i = 0; i < ptr3->size; i++)
     {
-    
+
         title_principalss++;
-        if (title_principalss->nconst != NULL && title_principalss->tconst != NULL )
+        if (title_principalss->nconst != NULL && title_principalss->tconst != NULL)
         {
 
             insert(&treePrincipalsTconst, title_principalss->tconst, ptr3);
@@ -104,8 +103,5 @@ int main(int argc, char *argv[])
     printf("\n");
     printInorder(treePrincipalsNconst);
 
-
     /*Program findNConst = find_nconst(treeKeyNconst, "nm0000003"); */
-    
-
 }
