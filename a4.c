@@ -1,3 +1,6 @@
+/*
+full name: Jason Eddy N'Guessan, student ID number: 1079936, and uoguelph e-mail: jnguessa@uoguelph.ca
+ */
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,38 +12,7 @@ int array1[20000];
 int collisions;
 int duplicates;
 
-struct record
-{
-    char *last_name;
-    char *first_name;
-    char *license_type;
-    char *license_no;
-    char *issue_date;
-};
-
-struct array
-{
-    struct record *arr;
-    int nelements;
-    struct record **hash;
-    int hash_size;
-};
-
-int char2int(unsigned char c)
-{
-
-    if (isupper(c))
-    {
-
-        return (int)(c - 'A');
-    }
-    if (islower(c))
-    {
-        return (int)(c - 'a');
-    }
-
-    return 26;
-}
+/*Removed structures*/
 
 int hash1RedMain(char c, int max)
 {
@@ -110,17 +82,115 @@ int hash1Red5(char c, int max)
     return 26;
 }
 
+int hash3(char *s, int max)
+{
+    char *c;
+    long number, column, counter, asci, today;
+
+    char *end;
+    char *date;
+    if (max % 2 == 0)
+    {
+        max++;
+    }
+    date = malloc(strlen(s) + 1);
+
+    today = 29112017;
+    counter = 0;
+    column = 1;
+    number = 0;
+
+    if (strstr(s, "S7") == s)
+    {
+
+        for (c = s; (*c); c++)
+        {
+            asci = (char)*c;
+
+            if (asci == 83 || asci == 45)
+            {
+                continue;
+            }
+            printf("\t%c", *c);
+
+            strncat(date, c, 1);
+        }
+        number = strtol(date, &end, 10) % (max + 71);
+
+        printf("hiii%ld", number);
+
+        return number;
+    }
+
+    for (c = s; (*c); c++)
+    {
+
+        asci = (char)*c;
+        if (asci == 47)
+        {
+            continue;
+        }
+        else
+        {
+
+            if (asci >= 64 && asci <= 90 && asci != 45 && strlen(s) != 2)
+            {
+                asci += asci << 2;
+                number = asci;
+                if (strstr(s, "Firm") != NULL || strstr(s, "States") != NULL)
+                {
+                    number += asci << 3;
+                }
+            }
+
+            if (strlen(s) == 2)
+            {
+
+                asci += asci << 3;
+                number += asci;
+                if (strstr(s, "PA") != NULL)
+                {
+                    number += asci << 2;
+                }
+            }
+            else
+            {
+
+                strncat(date, c, 1);
+            }
+        }
+        counter++;
+    }
+
+    if (strlen(date) == 8)
+    {
+
+        number = strtol(date, &end, 10) % (max + 71);
+        if (strstr(date, "03232000") == s)
+        {
+            number += 1;
+        }
+    }
+    if (strlen(date) == 4 || (strlen(date) == 5))
+    {
+        number = strtol(date, &end, 10) % (max + 71);
+    }
+
+    return labs(number);
+}
+
 int hash1(char *s, int max)
 {
+    char *c;
+
+    unsigned long number, column, new;
+    int i;
 
     if (max % 2 == 0)
     {
 
         max = max + 1;
     }
-    char *c;
-
-    unsigned long number, column, new;
 
     column = 1;
     number = 0;
@@ -190,7 +260,7 @@ int hash1(char *s, int max)
     }
 
     new = 0;
-    int i = 0;
+    i = 0;
 
     while (number)
     {
@@ -203,7 +273,7 @@ int hash1(char *s, int max)
     }
 
     printf("%ld0#\n", new);
-    return (int)new;
+    return (int)new % max;
 }
 
 int reduce2(char c, int max)
@@ -270,6 +340,7 @@ char asciConvert(char *c, int counter)
     }
 }
 
+/* https://stackoverflow.com/questions/664014/what-integer-hash-function-are-good-that-accepts-an-integer-hash-key */
 long hash(long x)
 {
     x = ((x >> 16) ^ x) * 0x45d9f3b;
@@ -280,14 +351,7 @@ long hash(long x)
 
 long hash2(char *s, int max)
 {
-
-    if (max % 2 == 0)
-    {
-
-        max = max + 1;
-    }
     char str1[10];
-
     char *c;
     char *string;
     char *preString;
@@ -295,6 +359,12 @@ long hash2(char *s, int max)
     char *end;
     int number, column, new, firstZero, counter, value;
     long result;
+
+    if (max % 2 == 0)
+    {
+
+        max = max + 1;
+    }
 
     value = 0;
     firstZero = 0;
@@ -347,7 +417,6 @@ long hash2(char *s, int max)
         strcat(string, preString);
         result = strtol(string, &end, 10) / 2;
 
-        printf("||TH result:%s||\n", string);
         return labs(hash(result)) % max;
     }
 
@@ -384,13 +453,10 @@ long hash2(char *s, int max)
             }
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10);
 
-        printf("||TH result:%s||\n", string);
-        return labs(hash(result)) % max;
+        return labs(hash(result)) % (max);
     }
 
     if (strstr(s, "LG") == s || strstr(s, "PC") == s)
@@ -426,12 +492,9 @@ long hash2(char *s, int max)
             }
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10);
 
-        printf("||TH result:%s||\n", string);
         return labs(hash(result)) % max;
     }
 
@@ -482,12 +545,9 @@ long hash2(char *s, int max)
             }
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10);
 
-        printf("||CC result:%s||\n", string);
         return labs(hash(result)) % max;
     }
 
@@ -526,12 +586,9 @@ long hash2(char *s, int max)
             }
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10);
 
-        printf("||CC result:%s||\n", string);
         return labs((long)hash(result)) % max;
     }
 
@@ -571,12 +628,9 @@ long hash2(char *s, int max)
             }
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10);
 
-        printf("||CC result:%s||\n", string);
         return (long)labs(hash(result)) % max;
     }
 
@@ -613,12 +667,9 @@ long hash2(char *s, int max)
             }
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10);
 
-        printf("||CC result:%s||\n", string);
         return labs(hash(result)) % max;
     }
 
@@ -660,12 +711,9 @@ long hash2(char *s, int max)
             }
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10);
 
-        printf("||TH result:%s||\n", string);
         return labs(hash(result)) % max;
     }
 
@@ -702,12 +750,9 @@ long hash2(char *s, int max)
             }
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10);
 
-        printf("||TH result:%s||\n", string);
         return labs(hash(result)) % max;
     }
 
@@ -744,12 +789,9 @@ long hash2(char *s, int max)
             }
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10);
 
-        printf("||TH result:%s||\n", string);
         return labs(hash(result)) % max;
     }
 
@@ -786,12 +828,9 @@ long hash2(char *s, int max)
             }
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10);
 
-        printf("||TH result:%s||\n", string);
         return labs(hash(result)) % max;
     }
 
@@ -836,12 +875,9 @@ long hash2(char *s, int max)
             }
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10);
 
-        printf("||TH result:%s||\n", string);
         return labs(hash(result)) % max;
     }
 
@@ -878,12 +914,9 @@ long hash2(char *s, int max)
             }
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10);
 
-        printf("||L6 result:%s||\n", string);
         return labs(hash(result)) % max;
     }
     if (strstr(s, "K1") == s || strstr(s, "K3") == s || strstr(s, "AN") == s || strstr(s, "A2") == s || strstr(s, "A4") == s)
@@ -919,12 +952,9 @@ long hash2(char *s, int max)
             }
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10);
 
-        printf("||AN-R result:%s||\n", string);
         return labs(hash(result)) % max;
     }
     if (strstr(s, "S5") == s || strstr(s, "S4") == s || strstr(s, "S6") == s || strstr(s, "S1") == s || strstr(s, "S2") == s)
@@ -968,12 +998,9 @@ long hash2(char *s, int max)
             }
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10);
 
-        printf("||S5 result:%s||\n", string);
         return labs(hash(result)) % max;
     }
 
@@ -1014,12 +1041,9 @@ long hash2(char *s, int max)
             }
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
-        long result = strtol(string, &end, 10);
+        result = strtol(string, &end, 10);
 
-        printf("||E1 result:%s||\n", string);
         return labs(hash(result)) % max;
     }
 
@@ -1056,12 +1080,8 @@ long hash2(char *s, int max)
             }
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10);
-
-        printf("||M1-R result:%s||\n", string);
         return labs(hash(result)) % max;
     }
     if (strstr(s, "ed") != NULL || strstr(s, " ") != NULL)
@@ -1081,12 +1101,10 @@ long hash2(char *s, int max)
             new = ((new + (number << 4)) % max);
             number = (number / (max));
         }
-        printf("new: %d\n", new);
         return labs(new);
     }
     if (strstr(s, "M1") == s || strstr(s, "H1") == s || strstr(s, "O1") == s || strstr(s, "C1") == s ||
         strstr(s, "C6") == s || strstr(s, "C7") == s || strstr(s, "C8") == s || strstr(s, "C9") == s ||
-
         strstr(s, "J1") == s || strstr(s, "C9") == s || strstr(s, "L5") == s || strstr(s, "L4") == s || strstr(s, "L3") == s || strstr(s, "C2") == s || strstr(s, "C3") == s || strstr(s, "C4") == s || strstr(s, "C5") == s || strstr(s, "J2") == s || strstr(s, "J3") == s || strstr(s, "J4") == s ||
         strstr(s, "ing") == NULL)
     {
@@ -1208,13 +1226,10 @@ long hash2(char *s, int max)
                       */
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
-        long result = strtol(string, &end, 10);
+        result = strtol(string, &end, 10);
         result = labs(hash(result)) % max;
 
-        printf("||1 result:%s||\n", string);
         return result;
     }
 
@@ -1252,12 +1267,9 @@ long hash2(char *s, int max)
             }
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10);
 
-        printf("||U1 result:%s||\n", string);
         return labs(hash(result)) % max;
     }
 
@@ -1304,12 +1316,9 @@ long hash2(char *s, int max)
                       */
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10);
 
-        printf("||T2 result:%s||\n", string);
         return labs(hash(result)) % max;
     }
 
@@ -1349,12 +1358,9 @@ long hash2(char *s, int max)
     */
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10);
 
-        printf("||T2 result:%s||\n", string);
         return labs(hash(result)) % max;
     }
 
@@ -1401,11 +1407,8 @@ long hash2(char *s, int max)
         */
         }
 
-        printf("---%s", string);
-
         strcat(string, preString);
         result = strtol(string, &end, 10) % max;
-        printf("||GPN:%d||\n", result);
         return labs(hash(result)) % max;
     }
 
@@ -1451,7 +1454,6 @@ long hash2(char *s, int max)
 
         strcat(string, preString);
         result = strtol(string, &end, 10);
-        printf("||%s: %d||\n", s, result);
 
         return labs(hash((int)result) % max);
     }
@@ -1473,177 +1475,7 @@ long hash2(char *s, int max)
             new = ((new + (number << 4)) % max);
             number = (number / (max));
         }
-        printf("new: %d\n", new);
-        return labs(new); /*
-    strcat(preString, string);
-
-    char *end;
-    result = strtol(string, &end, 10) % max;
-    printf("||%ld||", result);
-     */
-    }
-}
-
-struct array *read_records()
-{
-    char buffer[BUFFER_SIZE];
-
-    struct array *arrptr;
-
-    FILE *fp;
-
-    int line, start, end;
-
-    arrptr = malloc(sizeof(struct array));
-    arrptr->nelements = 0;
-
-    fp = fopen("Professional_and_Occupational_Licensing.csv", "r");
-    fgets(buffer, BUFFER_SIZE, fp);
-
-    while (!feof(fp))
-    {
-        if (fgets(buffer, BUFFER_SIZE, fp) == NULL)
-        {
-            break;
-        }
-
-        if (strlen(buffer) == BUFFER_SIZE - 1)
-        {
-            fprintf(stderr, "Error:  BUFFER TOO SMALL\n");
-            exit(-1);
-        }
-
-        (arrptr->nelements)++;
-    }
-
-    arrptr->arr = malloc(sizeof(struct record) * (arrptr->nelements));
-
-    fseek(fp, 0, SEEK_SET);
-
-    fgets(buffer, BUFFER_SIZE, fp);
-    for (line = 0; line < arrptr->nelements; line++)
-    {
-        fgets(buffer, BUFFER_SIZE, fp);
-
-        start = 0;
-
-        for (end = start; buffer[end] != ','; end++)
-            ;
-        /*last name*/
-        (arrptr->arr)[line].last_name = malloc(end - start + 1);
-        strncpy((arrptr->arr)[line].last_name, buffer + start, end - start);
-        (arrptr->arr)[line].last_name[end - start] = '\0';
-
-        start = end + 1;
-        for (end = start; buffer[end] != ','; end++)
-            ; /* find next comma */
-
-        /*first name*/
-        (arrptr->arr)[line].first_name = malloc(end - start + 1);
-        strncpy((arrptr->arr)[line].first_name, buffer + start, end - start);
-        (arrptr->arr)[line].first_name[end - start] = '\0';
-
-        start = end + 1;
-        for (end = start; buffer[end] != ','; end++)
-            ; /* find next comma */
-
-        start = end + 1;
-        for (end = start; buffer[end] != ','; end++)
-            ;
-
-        start = end + 1;
-        for (end = start; buffer[end] != ','; end++)
-            ;
-
-        (arrptr->arr)[line].license_no = malloc(end - start + 1);
-        strncpy((arrptr->arr)[line].license_no, buffer + start, end - start);
-        (arrptr->arr)[line].license_no[end - start] = '\0';
-        /* find next comma */
-
-        start = end + 1;
-        for (end = start; buffer[end] != ','; end++)
-            ; /* find next comma */
-
-        start = end + 1;
-        for (end = start; buffer[end] != ','; end++)
-            ; /* find next comma */
-
-        (arrptr->arr)[line].license_type = malloc(end - start + 1);
-        strncpy((arrptr->arr)[line].license_type, buffer + start, end - start);
-        (arrptr->arr)[line].license_type[end - start] = '\0';
-
-        start = end + 1;
-        for (end = start; buffer[end] != ','; end++)
-            ; /* find next comma */
-
-        start = end + 1;
-        for (end = start; buffer[end] != ','; end++)
-            ; /* find next comma */
-
-        start = end + 1;
-        for (end = start; buffer[end] != ','; end++)
-            ; /* find next comma */
-
-        start = end + 1;
-        for (end = start; buffer[end] != ','; end++)
-            ; /* find next comma */
-
-        start = end + 1;
-        for (end = start; buffer[end] != ','; end++)
-            ;
-
-        (arrptr->arr)[line].issue_date = malloc(end - start + 1);
-        strncpy((arrptr->arr)[line].issue_date, buffer + start, end - start);
-        (arrptr->arr)[line].issue_date[end - start] = '\0';
-    }
-
-    return arrptr;
-}
-
-void build_hash(struct array *arrptr, int hash_size)
-{
-    int idx, line;
-    int duplicate;
-
-    arrptr->hash_size = hash_size;
-    arrptr->hash = malloc(sizeof(struct record *) * arrptr->hash_size);
-
-    for (idx = 0; idx < arrptr->hash_size; idx++)
-    {
-        (arrptr->hash)[idx] = NULL;
-    }
-
-    for (line = 0; line < arrptr->nelements; line++)
-    {
-        printf(" Adding %s\n", (arrptr->arr)[line].license_no);
-
-        idx = hash2((arrptr->arr)[line].license_no, arrptr->hash_size);
-
-        duplicate = 0;
-        while ((arrptr->hash)[idx] != NULL)
-        {
-            if (strcmp(((arrptr->hash)[idx])->license_no,
-                       (arrptr->arr)[line].license_no) == 0)
-            {
-                printf("  Skipping duplicate\n");
-                duplicates++;
-                duplicate = 1;
-                break;
-            }
-
-            printf("collision at %d %s\n", idx, ((arrptr->hash)[idx])->license_no);
-            collisions++;
-            idx++;
-            if (idx >= arrptr->hash_size)
-            {
-                idx = 0;
-            }
-        }
-
-        if (!duplicate)
-        {
-            (arrptr->hash)[idx] = (arrptr->arr) + line;
-        }
+        return labs(new);
     }
 }
 
@@ -1683,81 +1515,4 @@ struct record *find(char *key, struct array *arrptr)
         }
     }
     return NULL;
-}
-
-int main()
-{
-    struct array *arrptr;
-    int line;
-    struct record *r;
-
-    collisions = 0;
-    duplicates = 0;
-
-    arrptr = read_records();
-
-    build_hash(arrptr, 500000);
-
-    /*
-  for (line=0;line<arrptr->nelements;line++)
-  {
-    printf( " %d %s, %s: %s %s %s |%d\n", line,
-                         (arrptr->arr)[line].last_name,
-                        (arrptr->arr)[line].first_name,
-                (arrptr->arr)[line].license_no,
-           (arrptr->arr)[line].license_type,
-           (arrptr->arr)[line].issue_date,
-
-           
-                    str2int( (arrptr->arr)[line].last_name, 100 ) );
-  }
-    */
-
-    printf("Duplicates: %d\n", duplicates);
-    printf("Collisions: %d\n\n", collisions);
-
-    r = find("L1-0015338", arrptr);
-    if (r == NULL)
-    {
-        printf("Not found\n");
-    }
-    else
-    {
-        printf("found\n");
-
-        /*
-         printf("%s, %s : %s\n", r->last_name,
-                r->first_name,
-                r->license_type);
-         */
-    }
-
-    r = find("L2-0007835", arrptr);
-    if (r == NULL)
-    {
-        printf("Not found\n");
-    }
-    else
-    {
-        printf("found\n");
-
-        /*
-            printf("%s, %s : %s\n", r->last_name,
-                   r->first_name,
-                   r->license_type);
-            */
-    }
-
-    r = find("TJ-0000322", arrptr);
-    if (r == NULL)
-    {
-        printf("Not found\n");
-    }
-    else
-    {
-        printf("found\n");
-    }
-
-    free_array_ptr(arrptr);
-    return 0;
 }
