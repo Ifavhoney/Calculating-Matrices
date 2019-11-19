@@ -22,23 +22,23 @@ struct arrayStruct
     FILE *fp = NULL;
     char buff[256];
     int i;
-    int total; 
+    int total;
 
     struct title_principals *array = NULL;
     static int hi[ARRAY_SIZE];
 
-    char *ptr = malloc(strlen(value) + strlen("/title.principalss.tsv") + 1);
+    char *ptr = malloc(strlen(value) + strlen("/title.principals.tsv") + 1);
 
     strcat(ptr, value);
-    strcat(ptr, "/title.principalss.tsv");
-
-
+    strcat(ptr, "/title.principals.tsv");
 
     length = strlen(ptr);
 
     i = 0;
     fp = fopen(ptr, "r");
     printf("ptr is %s\n", ptr);
+
+    free(ptr);
     total = totalRows(fp);
 
     if (fp != NULL)
@@ -70,7 +70,7 @@ struct arrayStruct
 
             if (i <= total)
             {
-               result1 = get_column(buff, 0);
+                result1 = get_column(buff, 0);
                 if (hi[i] == 0)
                 {
                     array[i].tconst = NULL;
@@ -85,7 +85,7 @@ struct arrayStruct
             else
             {
 
-               result2 = get_column(buff, 2);
+                result2 = get_column(buff, 2);
                 if (hi[i - total - 1] == 0)
                 {
                     array[i - total - 1].nconst = NULL;

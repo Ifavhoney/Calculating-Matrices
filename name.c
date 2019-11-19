@@ -13,9 +13,9 @@ struct arrayStruct *
 get_name(char *value)
 {
     char *result = NULL;
-    FILE *fp= NULL;
+    FILE *fp = NULL;
     char buff[256];
-    long length; 
+    long length;
     int i;
     int total;
     char *ptr;
@@ -23,13 +23,14 @@ get_name(char *value)
     struct arrayStruct *test = NULL;
 
     static int hi[ARRAY_SIZE];
-   
-    ptr = malloc(strlen(value) + strlen("/name.basicsss.tsv") + 1);
+
+    ptr = malloc(strlen(value) + strlen("/name.basics.tsv") + 1);
     strcat(ptr, value);
     strcat(ptr, "/name.basics.tsv");
-   length = strlen(ptr);
+    length = strlen(ptr);
     printf("PTR: %s\n", ptr);
     fp = fopen(ptr, "r");
+    free(ptr);
     i = 0;
     total = totalRows(fp);
 
@@ -44,15 +45,13 @@ get_name(char *value)
             if (strstr(result, "actor") != NULL || strstr(result, "actress") != NULL)
             {
 
-
                 hi[i] = 1;
-                
             }
             else
             {
                 hi[i] = 0;
             }
-            
+
             i++;
         }
         array = malloc(length);

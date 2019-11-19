@@ -18,9 +18,9 @@ get_title(char *value)
     struct arrayStruct *test = NULL;
     char buff[256];
     struct title_basics *array = NULL;
- FILE *fp;
-  int i;
-  int total;
+    FILE *fp;
+    int i;
+    int total;
     static int hi[ARRAY_SIZE];
 
     static int hi2[ARRAY_SIZE];
@@ -32,12 +32,9 @@ get_title(char *value)
     strcat(ptr, "/title.basics.tsv");
 
     length = strlen(value);
-    
-
-   
 
     fp = fopen(ptr, "r");
-   i = 0;
+    i = 0;
 
     total = totalRows(fp);
 
@@ -45,6 +42,7 @@ get_title(char *value)
     {
         printf("ptr is %s\n", ptr);
 
+        free(ptr);
         while (fgets(buff, 256, fp) != NULL && i <= ARRAY_SIZE)
         {
             length += strlen(buff);
@@ -92,7 +90,7 @@ get_title(char *value)
 
             if (i <= total)
             {
-                 result1 = get_column(buff, 0);
+                result1 = get_column(buff, 0);
                 if (hi[i] == 0 || hi2[i] == 0)
                 {
                     array[i].tconst = NULL;
@@ -107,7 +105,7 @@ get_title(char *value)
             else
             {
 
-               result2 = get_column(buff, 1);
+                result2 = get_column(buff, 2);
                 if (hi[i - total - 1] == 0 || hi2[i - total - 1] == 0)
                 {
                     array[i - total - 1].primaryTitle = NULL;

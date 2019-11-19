@@ -27,7 +27,12 @@ int main(int argc, char *argv[])
 
     struct node *treePrincipalsNconst = NULL;
 
-    /* struct node *findNConst = NULL; */
+    struct node *findNConst = NULL;
+    struct node *findN2Const = NULL;
+
+    struct node *findTConst = NULL;
+    struct node *findTitle = NULL;
+
     struct arrayStruct *ptr;
     struct arrayStruct *ptr2;
 
@@ -35,6 +40,10 @@ int main(int argc, char *argv[])
     struct name_basics *name_basicss;
     struct title_basics *title_basicss;
     struct title_principals *title_principalss;
+
+    struct name_basics *name = NULL;
+    struct title_principals *tPNode = NULL;
+    struct title_basics *tBNode = NULL;
 
     char *arr = argv[1];
     ptr = (struct arrayStruct *)malloc(sizeof(struct arrayStruct));
@@ -52,7 +61,6 @@ int main(int argc, char *argv[])
     title_basicss = (struct title_basics *)ptr2->address;
 
     title_principalss = (struct title_principals *)ptr3->address;
-    printf("\n Name Basics tree\n");
 
     for (i = 0; i < ptr->size; i++)
     {
@@ -61,8 +69,8 @@ int main(int argc, char *argv[])
         if (name_basicss->nconst != NULL)
         {
 
-            insert(&treeKeyNconst, name_basicss->nconst, ptr);
-            insert(&treeKeyName, reverse(name_basicss->primaryName), ptr);
+            insert(&treeKeyNconst, name_basicss->nconst, name_basicss);
+            insert(&treeKeyName, name_basicss->primaryName, name_basicss);
         }
     }
 
@@ -76,8 +84,8 @@ int main(int argc, char *argv[])
         title_basicss++;
         if (title_basicss != NULL && title_basicss->tconst != NULL)
         {
-            insert(&treeTitleTconst, title_basicss->tconst, ptr2);
-            insert(&treeTitleTitle, reverse(title_basicss->primaryTitle), ptr2);
+            insert(&treeTitleTconst, title_basicss->tconst, title_basicss);
+            insert(&treeTitleTitle, title_basicss->primaryTitle, title_basicss);
         }
     }
     printInorder(treeTitleTconst);
@@ -93,13 +101,54 @@ int main(int argc, char *argv[])
         if (title_principalss->nconst != NULL && title_principalss->tconst != NULL)
         {
 
-            insert(&treePrincipalsTconst, title_principalss->tconst, ptr3);
-            insert(&treePrincipalsNconst, title_principalss->nconst, ptr3);
+            insert(&treePrincipalsTconst, title_principalss->tconst, title_principalss);
+            insert(&treePrincipalsNconst, title_principalss->nconst, title_principalss);
         }
     }
 
     printInorder(treePrincipalsTconst);
-    printf("\n");
-    printInorder(treePrincipalsNconst);
+    /*Boundary issues */
 
+    findNConst = find_nconst(treeKeyName, "Keanu Reeves");
+
+    printf("\n");
+    name = (struct name_basics *)(findNConst->address);
+
+    if (findNConst == NULL)
+    {
+        printf("\nNCONST NOT FOUNDL\n");
+    }
+    if (findNConst != NULL)
+    {
+        name = (struct name_basics *)(findNConst->address);
+
+        findTConst = find_nconst(treePrincipalsNconst, name->nconst);
+        /* printf("\n %s\n", findTConst->key); */
+        if (findTConst != NULL)
+        {
+            tPNode = (struct title_principals *)(findTConst->address);
+            /*   printf("\nKey: %s\n", tPNode->tconst); printf("tpNode: %s\n", tPNode->nconst);
+            printf("\nKey: %s\n", tPNode->tconst);*/
+
+            findTitle = find_nconst(treeTitleTconst, tPNode->tconst);
+
+            if (findTitle != NULL)
+            {
+                tBNode = (struct title_basics *)(findTitle->address);
+
+                printf("Actor: %s\n", tBNode->primaryTitle);
+            }
+            else
+            {
+                printf("\nThe corresponding ID is a short or Does not exist\n");
+            }
+        }
+    }
+    else
+    {
+        printf("\nError: Not found!\n");
+    }
+    //  findN2Const = find_nconst(treeKeyName, "Taika Waititi");
+
+    return 0;
 }

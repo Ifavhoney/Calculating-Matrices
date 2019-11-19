@@ -3,42 +3,59 @@ full name: Jason Eddy N'Guessan, student ID number: 1079936, and uoguelph e-mail
  */
 
 #include "binary.h"
+
+int count(struct node *tree)
+{
+    int result;
+    int c = 1; //Node itself should be counted
+    if (tree == NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        c += count(tree->left);
+
+        c += count(tree->right);
+        //  printf("%s\n", tree->key);
+        return c;
+    }
+}
+
 struct node *find_nconst(struct node *root, char *value)
 {
-
-    value = reverse(value);
-    if (root != NULL)
+    struct node *array = malloc(sizeof(struct node *));
+    struct node *newroot = root;
+    int i = 0;
+    while (newroot != NULL)
     {
-        int result = strcmp(value, root->key);
 
-        if (result == 0 || root->key)
+        if (strcmp(newroot->key, value) > 0)
         {
+            /* printf("left %s %s\n", newroot->key, value); */
+            newroot = newroot->left;
+        }
+        else if (strcmp(newroot->key, value) < 0)
+        {
+            /*    printf("right %s %s\n", newroot->key, value); */
 
-            return root;
+            newroot = newroot->right;
         }
         else
         {
 
-            int result = strcmp(value, root->key);
-            if (result > 0)
-            {
+            /*  printf("found"); */
 
-                find_nconst(root->right, value);
-            }
-            else
-            {
-                find_nconst(root->left, value);
-            }
+            return newroot;
         }
     }
-    else
-    {
-
-        return NULL;
-    }
+    free(array);
     return NULL;
 }
 
+/*
+       
+        */
 char *reverse(char *key)
 {
 
@@ -73,29 +90,28 @@ void insert(struct node **root, char *key, void *addressOf)
 {
     struct node *temp;
     int result;
-    struct node *node = (struct node *)malloc(sizeof(struct node));
-    node->key = reverse(key);
-    node->address = &addressOf;
-    node->left = NULL;
-    node->right = NULL;
 
     if (*root == NULL)
     {
+        struct node *node = (struct node *)malloc(sizeof(struct node));
+        node->key = key;
+        node->address = addressOf; /*&*/
+        node->left = NULL;
+        node->right = NULL;
         *root = node;
         return;
     }
     temp = *root;
 
-    result = strcmp(key, reverse(temp->key));
-
+    result = strcmp(key, temp->key);
     if (result > 0)
     {
 
-        insert(&temp->right, key, addressOf);
+        insert(&(temp->right), key, addressOf);
     }
     else
     {
-        insert(&temp->left, key, addressOf);
+        insert(&(temp->left), key, addressOf);
     }
 }
 

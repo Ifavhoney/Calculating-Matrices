@@ -16,7 +16,9 @@ struct node
     struct node *right;
 };
 
+int count(struct node *tree);
 void insert(struct node **root, char *key, void *addressOf);
+struct node *findTitles(struct node *root, char *value);
 
 struct node *find_nconst(struct node *root, char *value);
 
