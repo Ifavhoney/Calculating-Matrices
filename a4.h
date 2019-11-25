@@ -7,7 +7,6 @@ full name: Jason Eddy N'Guessan, student ID number: 1079936, and uoguelph e-mail
 #include <stdio.h>
 int hash2(char *s, int max);
 
-
 int hash1RedMain(char c, int max);
 int hash1Red2(char c, int max);
 int hash1RedNum(char c, int max);
