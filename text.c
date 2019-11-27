@@ -49,7 +49,7 @@ struct node_struct *search(struct node_struct *list, char *target, int (*compar)
     int ret;
     struct node_struct *ptr2;
     struct node_struct *list2 = (struct node_struct *)malloc(sizeof(struct node_struct));
-
+    list2->data = NULL;
     while (list->next != NULL)
     {
         list = list->next;
