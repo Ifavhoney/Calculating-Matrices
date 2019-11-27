@@ -130,6 +130,7 @@ struct node_struct *copy(struct node_struct *start, struct node_struct *end)
                 list2->next = NULL;
                 continue;
             }
+            printf("str: %s", (char *)(temp->data));
 
             temp = list2;
 
