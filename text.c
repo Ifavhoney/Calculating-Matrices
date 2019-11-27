@@ -1,9 +1,7 @@
-#include "text.h"
-
 /*
 full name: Jason Eddy N'Guessan, student ID number: 1079936, and uoguelph e-mail: jnguessa@uoguelph.ca
  */
-
+#include "text.h"
 void remove_repeats(struct node_struct *list, int (*compar)(const void *, const void *))
 {
 
@@ -32,11 +30,14 @@ void remove_repeats(struct node_struct *list, int (*compar)(const void *, const 
             ret = (compar)(list->data, list->next->data);
             if (ret == 0)
             {
+                /*
                 int n = (compar)(list->data, (void *)"\n");
                 if (n != 0)
                 {
                     free_list(prev->next, 1);
                 }
+                */
+                free_list(prev->next, 1);
             }
         }
     }
@@ -79,23 +80,31 @@ struct node_struct *search(struct node_struct *list, char *target, int (*compar)
             temp->next = ptr2;
         }
     }
-
     return list2;
 }
 
 int length(struct node_struct *list)
 {
     int i = 0;
+
+    if (list == NULL)
+    {
+        return 0;
+    }
     while (list->next != NULL)
     {
         list = list->next;
         i++;
     }
-    return i;
+    return i + 1;
 }
 
 struct node_struct *copy(struct node_struct *start, struct node_struct *end)
 {
+    
+    if (start == NULL || end == NULL) {
+        return NULL;
+    }
 
     struct node_struct *ptr2;
     struct node_struct *list2 = (struct node_struct *)malloc(256);
@@ -103,9 +112,10 @@ struct node_struct *copy(struct node_struct *start, struct node_struct *end)
     long length;
     while (start != end)
     {
+
         length = strlen(start->data);
 
-        if (start->next != NULL)
+        if (start->next != NULL && start->data != NULL)
         {
 
             ptr2 = (struct node_struct *)malloc(length);
@@ -167,7 +177,8 @@ char *get_word(struct node_struct **list)
     struct node_struct *ptr = (struct node_struct *)malloc(sizeof(struct node_struct));
 
     ptr = *list;
-    int length = (int)strlen(ptr->data) + 1;
+    /*Takes that whole line's length*/
+    int length = (int)strlen(ptr->data) + 2;
 
     char array[length];
 
@@ -192,6 +203,8 @@ char *get_word(struct node_struct **list)
             temp = malloc(length);
             while (begin <= i)
             {
+                /*Glues the words together*/
+
                 if (array[begin + 1] == '\0')
                 {
                     strncat(temp, &array[begin], 1);
@@ -208,6 +221,7 @@ char *get_word(struct node_struct **list)
 
                 begin++;
             }
+            /*End the line */
             firstWord[begin] = '\0';
             strncat(temp, &firstWord[begin], 1);
 
@@ -230,7 +244,7 @@ char *get_word(struct node_struct **list)
             }
 
             prev->next = ptr2;
-
+            /* printf("%s", ptr2 ->data); */
             begin++;
         }
     }

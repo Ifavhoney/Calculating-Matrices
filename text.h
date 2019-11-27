@@ -1,12 +1,11 @@
+/*
+full name: Jason Eddy N'Guessan, student ID number: 1079936, and uoguelph e-mail: jnguessa@uoguelph.ca
+ */
 #if !defined(text_h)
 #define text_h
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-/*
-full name: Jason Eddy N'Guessan, student ID number: 1079936, and uoguelph e-mail: jnguessa@uoguelph.ca
- */
 
 struct node_struct
 {
