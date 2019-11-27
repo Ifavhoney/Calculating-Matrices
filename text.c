@@ -109,7 +109,7 @@ struct node_struct *copy(struct node_struct *start, struct node_struct *end)
 
     struct node_struct *ptr2;
     struct node_struct *list2 = (struct node_struct *)malloc(sizeof(struct node_struct));
-
+    list2->data = NULL;
     long length;
     while (start != end)
     {
