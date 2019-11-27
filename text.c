@@ -131,15 +131,11 @@ struct node_struct *copy(struct node_struct *start, struct node_struct *end)
                 continue;
             }
 
-            if (list2 == NULL)
-            {
-                printf("Uh oh...\n");
-            }
-
             temp = list2;
 
             while (temp != NULL && temp->next != NULL)
             {
+                printf("str: %s", (char *)(temp->data));
                 temp = temp->next;
             }
             temp->next = ptr2;
