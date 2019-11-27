@@ -110,6 +110,7 @@ struct node_struct *copy(struct node_struct *start, struct node_struct *end)
     struct node_struct *ptr2;
     struct node_struct *list2 = (struct node_struct *)malloc(sizeof(struct node_struct));
     list2->data = NULL;
+    struct node_struct *temp;
     long length;
     while (start != end)
     {
@@ -122,16 +123,15 @@ struct node_struct *copy(struct node_struct *start, struct node_struct *end)
             ptr2 = (struct node_struct *)malloc(sizeof(struct node_struct));
             ptr2->data = start->data;
 
-            struct node_struct *temp;
-
-            temp = list2;
-
+            
             if (list2->data == NULL)
             {
                 list2->data = ptr2->data;
                 list2->next = NULL;
                 continue;
             }
+
+            temp = list2;
 
             while (temp->next != NULL)
             {
