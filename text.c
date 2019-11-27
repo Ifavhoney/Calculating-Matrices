@@ -101,8 +101,9 @@ int length(struct node_struct *list)
 
 struct node_struct *copy(struct node_struct *start, struct node_struct *end)
 {
-    
-    if (start == NULL || end == NULL) {
+
+    if (start == NULL || end == NULL)
+    {
         return NULL;
     }
 
@@ -296,7 +297,7 @@ int ftext(FILE *fp, struct node_struct *list)
             {
                 printf("\n");
             }
-            printf("%s ", ptr->data);
+            printf("%s ", (char *)(ptr->data));
             fwrite(ptr->data, sizeof(char), strlen(ptr->data) + 1, fp);
             fwrite("\n", sizeof(char), 1, fp);
         }
