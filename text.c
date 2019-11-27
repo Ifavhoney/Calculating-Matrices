@@ -133,13 +133,15 @@ struct node_struct *copy(struct node_struct *start, struct node_struct *end)
                 list2->next = NULL;
             }
 
+            /*accesses memory of list2*/
             temp = list2;
 
-            while (temp != NULL && temp->next != NULL)
+            while (list2 != NULL && temp->next != NULL)
             {
-                /*printf("str: %s", (char *)(temp->data)); */
+                printf("str: %s", (char *)(temp->data));
                 temp = temp->next;
             }
+            /*point to that next memory */
             temp->next = ptr2;
         }
 
