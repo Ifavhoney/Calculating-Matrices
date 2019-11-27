@@ -122,26 +122,28 @@ struct node_struct *copy(struct node_struct *start, struct node_struct *end)
         {
 
             ptr2 = (struct node_struct *)malloc(sizeof(struct node_struct));
+            /*Starts */
             ptr2->data = start->data;
 
             if (list2->data == NULL)
             {
+                /*Runs here once*/;
+
                 list2->data = ptr2->data;
                 list2->next = NULL;
-                continue;
             }
-            printf("str: %s", (char *)(temp->data));
 
             temp = list2;
 
             while (temp != NULL && temp->next != NULL)
             {
-                printf("str: %s", (char *)(temp->data));
+                /*printf("str: %s", (char *)(temp->data)); */
                 temp = temp->next;
             }
             temp->next = ptr2;
         }
 
+        /*Increments pointer */
         start = start->next;
     }
 
