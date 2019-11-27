@@ -183,7 +183,7 @@ char *get_word(struct node_struct **list)
 
     char array[length];
 
-    memcpy(array, ptr->data, length);
+    strncpy(array, (char *)(ptr->data), length);
 
     char firstWord[length];
 
@@ -239,7 +239,7 @@ char *get_word(struct node_struct **list)
                 prev = prev->next;
                 if (header == 0)
                 {
-                    memcpy(innitialWord, prev->data, length);
+                    strncpy(innitialWord, (char *)(prev->data), length);
                     header = 1;
                 }
             }
