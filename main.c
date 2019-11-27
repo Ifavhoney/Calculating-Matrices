@@ -15,13 +15,18 @@ int main(int argc, const char *argv[])
   struct node_struct *head, *chapter1, *chapter2, *copy_of;
   struct node_struct *sptr, *sptr1;
 
+  printf("Before....\n");
   fp = fopen("1342-0.txt", "r");
   head = txt2words(fp);
 
   fclose(fp);
 
+  printf("After....\n");
+
   sptr = search(head, "Pride", strcmpvoid);
   sptr1 = search(head, "PRIDE", strcmpvoid);
+
+  printf("REALLY after\n");
 
   chapter2 = sptr1->data;
   chapter1 = sptr->data;
@@ -162,6 +167,7 @@ int main(int argc, const char *argv[])
   }
   free(sptr);
   free(sptr1);
+  76980 errors from 19 contexts
  */
 
 /*
