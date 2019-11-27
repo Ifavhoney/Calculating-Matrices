@@ -99,6 +99,8 @@ int length(struct node_struct *list)
     return i + 1;
 }
 
+/*
+
 struct node_struct *copy(struct node_struct *start, struct node_struct *end)
 {
 
@@ -122,18 +124,15 @@ struct node_struct *copy(struct node_struct *start, struct node_struct *end)
         {
 
             ptr2 = (struct node_struct *)malloc(sizeof(struct node_struct));
-            /*Starts */
             ptr2->data = start->data;
 
             if (list2->data == NULL)
             {
-                /*Runs here once*/;
 
                 list2->data = ptr2->data;
                 list2->next = NULL;
             }
 
-            /*accesses memory of list2*/
             temp = list2;
 
             while (list2 != NULL && temp->next != NULL)
@@ -141,15 +140,32 @@ struct node_struct *copy(struct node_struct *start, struct node_struct *end)
                 printf("str: %s", (char *)(temp->data));
                 temp = temp->next;
             }
-            /*point to that next memory */
             temp->next = ptr2;
         }
 
-        /*Increments pointer */
         start = start->next;
     }
 
     return list2;
+}
+*/
+
+struct node_struct *copy(struct node_struct *start, struct node_struct *end)
+{
+    struct node_struct *newhead = malloc(sizeof(struct node_struct));
+    newhead->next = NULL;
+    newhead->data = start->data;
+    struct node_struct *oldhead = newhead;
+
+    while (start != NULL && start != end)
+    {
+        newhead->next = malloc(sizeof(struct node_struct));
+        newhead->next->data = start->data;
+        newhead->next->next = NULL;
+        newhead = newhead->next;
+        start = start->next;
+    }
+    return oldhead;
 }
 
 struct node_struct *txt2words(FILE *fp)
