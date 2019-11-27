@@ -156,7 +156,7 @@ struct node_struct *txt2words(FILE *fp)
     {
         while (fgets(buff, 256, fp) != NULL)
         {
-            char *val = (char *)malloc(256);
+            char *val = (char *)malloc(sizeof(char) * 257);
             strcat(val, buff);
             word->data = buff;
             get_word(&word);
@@ -187,7 +187,7 @@ char *get_word(struct node_struct **list)
 
     char firstWord[length];
 
-    char *innitialWord = malloc(length);
+    char *innitialWord = malloc(sizeof(char) * (length + 1));
 
     int i;
 
@@ -201,7 +201,7 @@ char *get_word(struct node_struct **list)
 
             char *temp;
 
-            temp = malloc(length);
+            temp = malloc(sizeof(char) * (length + 1));
             while (begin <= i)
             {
                 /*Glues the words together*/
