@@ -14,6 +14,7 @@ full name: Jason Eddy N'Guessan, student ID number: 1079936, and uoguelph e-mail
 
 int main(int argc, char *argv[])
 {
+    printf("ADD FILE NAME In Files Folder OR IT WONT WORK!!");
     int i = 0;
 
     struct node *treeKeyName = NULL;
@@ -28,6 +29,7 @@ int main(int argc, char *argv[])
     struct node *treePrincipalsNconst = NULL;
 
     struct node *findNConst = NULL;
+
     struct node *findN2Const = NULL;
 
     struct node *findTConst = NULL;
@@ -110,9 +112,10 @@ int main(int argc, char *argv[])
     /*Boundary issues */
 
     findNConst = find_nconst(treeKeyName, "Keanu Reeves");
-
+    /*
+    When returned, we should be able to access it's node e.g nconst
+    */
     printf("\n");
-    name = (struct name_basics *)(findNConst->address);
 
     if (findNConst == NULL)
     {
@@ -148,7 +151,20 @@ int main(int argc, char *argv[])
     {
         printf("\nError: Not found!\n");
     }
-    //  findN2Const = find_nconst(treeKeyName, "Taika Waititi");
+
+    printf("\n\n");
+
+    findN2Const = find_nconst(treeKeyName, "Taika Waititi");
+    name = (struct name_basics *)(findN2Const->address);
+    findTConst = find_nconst(treePrincipalsNconst, name->nconst);
+
+    if (findN2Const != NULL)
+    {
+        tPNode = (struct title_principals *)(findTConst->address);
+
+        printf("const: %s\n", tPNode->tconst);
+        printf("nconst: %s\n", tPNode->nconst);
+    }
 
     return 0;
 }

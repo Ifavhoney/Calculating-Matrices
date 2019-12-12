@@ -24,7 +24,7 @@ get_name(char *value)
 
     static int hi[ARRAY_SIZE];
 
-    ptr = malloc(strlen(value) + strlen("/name.basics.tsv") + 1);
+    ptr = malloc(strlen(value) + strlen("/name.basicsss.tsv") + 1);
     strcat(ptr, value);
     strcat(ptr, "/name.basics.tsv");
     length = strlen(ptr);

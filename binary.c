@@ -6,8 +6,7 @@ full name: Jason Eddy N'Guessan, student ID number: 1079936, and uoguelph e-mail
 
 int count(struct node *tree)
 {
-    int result;
-    int c = 1; //Node itself should be counted
+    int c = 1;
     if (tree == NULL)
     {
         return 0;
@@ -17,7 +16,6 @@ int count(struct node *tree)
         c += count(tree->left);
 
         c += count(tree->right);
-        //  printf("%s\n", tree->key);
         return c;
     }
 }
@@ -26,7 +24,6 @@ struct node *find_nconst(struct node *root, char *value)
 {
     struct node *array = malloc(sizeof(struct node *));
     struct node *newroot = root;
-    int i = 0;
     while (newroot != NULL)
     {
 
