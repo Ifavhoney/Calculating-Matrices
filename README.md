@@ -15,7 +15,7 @@ The notable branches requires you to understand how to run a <a href= "https://o
 
   <img src = "https://github.com/Ifavhoney/Data-Structures-Algorithms-in-C/blob/FileHashFunction/HashImage.png">
 
-  >=
+  >
 <b>Enjoy!</b>
 </br>
 
