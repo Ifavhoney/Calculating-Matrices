@@ -43,35 +43,25 @@ void question1(int length, int arr[]){
 }
 
 //length - 1 for end of indices
-int partition(int length, int start, int arr[]){
-
+int partition(int length, int start, int arr[], int *inversion){
 
     int selected_element = arr[length - 1];
     int index = start - 1;
     //length - 2 because we'll be changing the last indices at the end
-    for (int j = index; j <= length-2; j++) {
+    for (int j = start; j <= length-2; j++) {
         if(arr[j] < selected_element){
+            (*inversion)++;
             index++;
-                //consider creating function next time
-                    int temp = arr[index];
-                   arr[index] = arr[j];
-                   arr[j] = temp;
+            //consider creating function
+            swap(&arr[index], &arr[j]);
         }
     }
 
-    int temp = arr[index + 1];
-    arr[index + 1] = arr[length-1];
-    arr[length-1] = temp;
-    if(start == 2){
-        for ( int t = 0; t <= 4; t++) {
-                   printf("%d = %d\n", t, arr[t]);
-               }
-    }
+
+    swap(&arr[index + 1], &arr[length-1]);
 
     return (index + 1);
-    
 }
-
 
 
 
