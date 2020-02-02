@@ -6,7 +6,11 @@
 //  Copyright © 2020 Jason Eddy. All rights reserved.
 //
 
-#include "a2.h"
+#include <stdio.h>
+void question1(int length, int arr[]);
+void question2(int length, int start, int arr[], int *inversion, int *numOperations);
+int partition(int length, int start, int arr[], int *inversion, int *numOperations);
+void swap(int *i, int *i2);
 
 void question1(int length, int arr[]){
     int j = 0;
