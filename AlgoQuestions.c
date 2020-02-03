@@ -11,60 +11,19 @@
 //2
 void p2InsertArray(char *filename, char* arr[]){
      char buff[30];
-        char *tempArray[30000];
-        char numChar[30];
+
+    
         
-        int j = 0;
-        int temp_counter = 0;
-        char *parser;
-        int i = 0;
+                int i = 0;
         FILE *fp  = fopen(filename, "r");
 
-        while (fgets(buff, sizeof(buff), fp)) {
-            tempArray[i] = malloc(strlen(buff) * 2);
-            strcpy(tempArray[i], buff);
-            i++;
-        }
-        
-        
-        i = 0;
-        while (i != 29999) {
-            parser = malloc(strlen(tempArray[i]) * 2);
-            strcpy(parser, tempArray[i]);
-            while (1) {
-                
-                char num =  *(parser)++;
-               
-                if(num == '\n'){
-                    arr[j] = malloc(strlen(numChar));
-                    strcpy(arr[i], numChar);
-                    j++;
-                    break;
-                }
-                else if(num != ' ' && num != '\0'){
-                     
-                    
-                    numChar[temp_counter] = num;
-                    temp_counter++;
-                    while(num != ' '){
-                        num = *(parser)++;
-                        numChar[temp_counter] = num;
-                        temp_counter++;
-                        
-                    }
-        
-                }
-        
-            }
-            temp_counter = 0;
-            i++;
-        }
-        
     
-
-     for (i = 0; i < 30000; i++) {
-        free(tempArray[i]);
-    }
+        while (fgets(buff, sizeof(buff), fp)) {
+            arr[i] = malloc(strlen(buff) * 2);
+            strcpy(arr[i], buff);
+            i++;
+        }
+      
     fclose(fp);
 
 }
