@@ -57,7 +57,57 @@ void p2ArraytoPoints(char *array[], struct Vertices points[]){
 }
 
 void p2Question1(char *filename, char *array[], struct Vertices points[]){
-    
+
+       // float points[15000];
+        int i = 0;
+           int j = 0;
+           float c2 = 0, x2 = 0, y2 = 0;
+        char *val;
+        p2InsertArray(filename, array);
+        p2ArraytoPoints(array, points);
+        //Reduced code from N^4 to N^3, had to implement it this way in order to check all points
+
+        float a = 0;
+        float b = 0;
+        while (i != 29999) {
+            
+            val =  strtok(array[i], "    ");
+            while (val != NULL) {
+                if(x2 == 0){
+                    x2 = atof(val);
+
+                }
+                else{
+                    if(y2 == 0){
+                        //stores into y2
+                        y2 = atof(val);
+                        c2 = y2 + x2;
+                        /*a = y2 − y1, b = x1 − x2, c = x1y2 − y1x2. || ax + by = c, p.113*/
+                        for (int k = 0; k < 15000; k++) {
+                            a = y2 - points[k].y;
+                            b = points[k].x - x2;
+                            float c = a + b;
+                           if( c == c2){
+                                printf("Line Match - i:%d @ ax+by = %f \n", k, c );
+                            }
+                        }
+                        
+                    }
+             }
+                val = strtok(NULL, "    ");
+                
+            }
+            x2 = 0;
+            y2 = 0;
+            j = 0;
+            i++;
+        }
+       
+        for (int f = 0; f < 29999; f++) {
+            free(array[f]);
+        }
+        printf("\n\nThe brute force algorithm consits of O(n^3) - all simply due to the triple nested loop\n\n");
+        
 }
 
    
