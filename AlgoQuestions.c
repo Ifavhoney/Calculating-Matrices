@@ -13,7 +13,49 @@ void swap(long *i, long *i2){
               *i = *i2;
              *i2 = temp;
 }
-void question1( int length, long arr[]){
+void question3(char *fileName){
+    printf("1.1 Brute force algorithm to count number of inversions: O(n^2)\n");
+
+    struct timeb firstStart, firstEnd;
+    int elapsedTime = 0;
+    long length = getLength(fileName);
+    long arr[length];
+          long inversion = 0;
+          long numOperations = 0;
+    insertToArray(fileName, arr);
+    ftime(&firstStart);
+
+   question1(length, arr);
+    ftime(&firstEnd);
+    elapsedTime = firstEnd.millitm - firstStart.millitm;
+    printf("\nTime: %dms ", elapsedTime);
+
+    printf("\n\n");
+    
+
+    
+    printf("1.2 Begin QuickSort Algorithm using Divide & Conquer: O(nlogn)\n");
+      struct timeb start, end;
+        
+        elapsedTime = 0;
+      ftime(&start);
+       inversion = 0;
+       numOperations = 0;
+      
+      question2(length, 0, arr, &inversion, &numOperations);
+       printf("Inversion: %ld\nnumOperations: %ld", inversion, numOperations);
+      printf("\n The n/2 is based on always splitting the array, whereas the O(n) consits of the number of times the partition is occuring\n");
+       printf("\nThus, the Masters Thereom: T (n) = 2T ( n/2 ) + Θ(n)\n");
+      free(fileName);
+      ftime(&end);
+      elapsedTime =  end.millitm-start.millitm;
+      printf("\nTime: %dms ", elapsedTime);
+     
+    
+
+}
+//Source from slides
+void question1( long length, long arr[]){
     int j = 0;
     int i = 0;
     int min = 0;
@@ -29,20 +71,14 @@ void question1( int length, long arr[]){
                 //if the next element is greater than our min, store
                 if(arr[j] > arr[min]){
                     min = j;
-                    inversion++;
                 }
                 //keep going untill get last min
             }
-            
+            inversion++;
             swap(&arr[i], &arr[min]);
        
         }
-        
-        int t = 0;
-        for ( t = 0; t <= length-1; t++) {
-            printf("%d = %d\n", t, arr[t]);
-        }
-        printf("Inversions: %d\nNumOperations(Without inversions): %d\nEfficiency class: O(n^2) \n", inversion, j + i );
+        printf("Inversions: %d\nNumOperations: %d\n", inversion, j + i );
         
     }
 }
@@ -53,12 +89,11 @@ void question1( int length, long arr[]){
 /*
  1.2 Design a recursive divide-and-conquer algorithm of Θ(nlogn) to count the number of inversions in an array, set up a recurrence to analyze the number of executions of its basic operation of the best case, and determine the efficiency class. Use the Master Theorem to verify the efficiency class in your analysis result
  */
-
+//Source from book
 void question2(long length, int start, long arr[], long *inversion, long *numOperations){
     if(start < length){
         int s = partition(length, start, arr, inversion, numOperations);
         question2(s-1, start, arr, inversion,  numOperations);
-
         question2(length, s+1, arr, inversion,  numOperations);
          }
     
@@ -68,6 +103,7 @@ void question2(long length, int start, long arr[], long *inversion, long *numOpe
 int partition(long length, int start, long arr[], long *inversion, long *numOperations){
 
     long selected_element = arr[length - 1];
+
     int index = start - 1;
     //length - 2 because we'll be changing the last indices at the end
     for (int j = start; j <= length-2; j++) {
@@ -83,6 +119,7 @@ int partition(long length, int start, long arr[], long *inversion, long *numOper
     }
 
     (*inversion)++;
+
     swap(&arr[index + 1], &arr[length-1]);
 
     return (index + 1);
