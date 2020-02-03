@@ -188,3 +188,54 @@ long getLength(char *filename){
 
 
 
+
+
+int main(int argc, const char * argv[]) {
+    char *fileName = malloc(30);
+    strcpy(fileName, "data_2.txt");
+    char *array[30000];
+    p2InsertArray(fileName, array);
+    int i = 0;
+    int j = 0;
+    char *val;
+    float c, x = 0, y = 0;
+    while (i != 29999) {
+        val =  strtok(array[i], "    ");
+        while (val != NULL) {
+            if(j == 0){
+                x = atof(val);
+                printf("X:%f\n", x);
+
+            }
+            else{
+                if(y == 0){
+                    y = atof(val);
+                    printf("Y:%f\n", y);
+                    c = y + x;
+                }
+                
+                
+            }
+        
+            
+            j++;
+
+            val = strtok(NULL, "    ");
+            
+
+        }
+        
+        x = 0;
+        y = 0;
+        j = 0;
+        i++;
+    }
+
+
+     
+    free(fileName);
+ //   p2InsertArray(fileName, <#char **arr#>)
+    return 0;
+
+  
+}
