@@ -1,11 +1,9 @@
-//
-//  a2.c
-//  A23490
-//
-//  Created by Jason Eddy on 2020-02-02.
-//  Copyright © 2020 Jason Eddy. All rights reserved.
-//
-
+/*
+Name: Jason N'Guessan
+ID: 1079936
+Date: February 4th 2020
+Assignment: Assignment2
+*/
 #include "a2.h"
 
 
@@ -15,7 +13,7 @@ void p2ArraytoPoints(char *array[], struct Vertices points[]){
     int j = 0;
     int pointCounter = 0;
     char *val;
-    float c = 0, x1 = 0, y1 = 0;
+    float x1 = 0, y1 = 0;
         
 
     while (i != 29999) {
@@ -79,7 +77,6 @@ int p2GetlengthSorted(char *filename,char *array[], struct Vertices points[]){
                            //stores into y2
                            y2 = atof(val);
                            c2 = y2 + x2;
-                           /*a = y2 − y1, b = x1 − x2, c = x1y2 − y1x2. || ax + by = c, p.113*/
                            for (int k = 0; k < 15000; k++) {
                                a = y2 - points[k].y;
                                b = points[k].x - x2;
@@ -87,9 +84,8 @@ int p2GetlengthSorted(char *filename,char *array[], struct Vertices points[]){
                               if( c == c2){
                                  
                                   totalPoints++;
-                                  
-                                //   printf("Line Match - i:%d @ ax+by = %f \n", k, c );
-                               }
+
+                                                                 }
                            }
                            
                        }
@@ -133,7 +129,6 @@ void p2halfQ3(char *filename,char *array[], struct Vertices points[], struct Ver
                            //stores into y2
                            y2 = atof(val);
                            c2 = y2 + x2;
-                           /*a = y2 − y1, b = x1 − x2, c = x1y2 − y1x2. || ax + by = c, p.113*/
                            for (int k = 0; k < 15000; k++) {
                                a = y2 - points[k].y;
                                b = points[k].x - x2;
@@ -159,9 +154,8 @@ void p2halfQ3(char *filename,char *array[], struct Vertices points[], struct Ver
                j = 0;
                i++;
            }
-    
+
     sortByX(length, 0, sortedPoints);
-    
    
           
            
@@ -208,6 +202,7 @@ void p2Question1(char *filename, char *array[], struct Vertices points[]){
                         
                     }
              }
+             
                 val = strtok(NULL, "    ");
                 
             }
@@ -248,7 +243,7 @@ void swapf(float *i, float *i2){
     float temp = *i;
               *i = *i2;
              *i2 = temp;
-}//1
+}
 void swap(long *i, long *i2){
     long temp = *i;
               *i = *i2;
@@ -286,8 +281,11 @@ void question3(char *fileName){
       printf("\n The n/2 is based on always splitting the array, whereas the O(n) consits of the number of times the partition is occuring\n");
        printf("\nThus, the Masters Thereom: T (n) = 2T ( n/2 ) + Θ(n)\n");
       free(fileName);
-      ftime(&end);
+
       elapsedTime =  end.millitm-start.millitm;
+      if(elapsedTime  < 1){
+          elapsedTime = 0;
+      }
       printf("\nTime: %dms ", elapsedTime);
      
     
@@ -325,9 +323,7 @@ void question1( long length, long arr[]){
 
 
 
-/*
- 1.2 Design a recursive divide-and-conquer algorithm of Θ(nlogn) to count the number of inversions in an array, set up a recurrence to analyze the number of executions of its basic operation of the best case, and determine the efficiency class. Use the Master Theorem to verify the efficiency class in your analysis result
- */
+
 //Source from book
 void question2(long length, int start, long arr[], long *inversion, long *numOperations){
     if(start < length){
@@ -348,7 +344,7 @@ int partition(long length, int start, long arr[], long *inversion, long *numOper
     //length - 2 because we'll be changing the last indices at the end
     int i = start;
 
-    while(i != length-1){
+    while(i != length){
         (*numOperations)++;
 
         if(arr[i] < selected_element){
@@ -358,11 +354,12 @@ int partition(long length, int start, long arr[], long *inversion, long *numOper
             //consider creating function
             swap(&arr[counter], &arr[i]);
         }
+        i++;
     }
 
     (*inversion)++;
 
-    swap(&arr[counter + 1], &arr[length-1]);
+    swap(&arr[counter + 1], &arr[length]);
 
     return (counter + 1);
 }
@@ -398,32 +395,7 @@ void sortByX(long length, int start, struct Vertices points[]){
     
     
 }
- 
 
-/*
-int partition(long length, int start, long arr[], long *inversion, long *numOperations)
-{
-    long pivot = arr[length]; // pivot
-    int i = (start - 1); // Index of smaller element
-  
-    for (int j = start; j <= length; j++)
-    {
-        // If current element is smaller than the pivot
-        if (arr[j] < pivot)
-        {
-            i++; // increment index of smaller element
-            swap(&arr[i], &arr[j]);
-        }
-    }
-    swap(&arr[i + 1], &arr[length]);
-    return (i + 1);
-}
- */
-  
-/* The main function that implements QuickSort
-arr[] --> Array to be sorted,
-low --> Starting index,
-high --> Ending index */
 
 void insertToArray(char *filename, long arr[]){
     long length = getLength(filename);
