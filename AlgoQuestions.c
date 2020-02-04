@@ -55,9 +55,123 @@ void p2ArraytoPoints(char *array[], struct Vertices points[]){
     i = 0;
  
 }
+int p2GetlengthSorted(char *filename,char *array[], struct Vertices points[]){
+    
+    int i = 0;
+            int j = 0;
+            float c2 = 0, x2 = 0, y2 = 0;
+    int totalPoints = 0;
+         char *val;
+         p2InsertArray(filename, array);
+         p2ArraytoPoints(array, points);
+    float a = 0;
+           float b = 0;
+           while (i != 29999) {
+               
+               val =  strtok(array[i], "    ");
+               while (val != NULL) {
+                   if(x2 == 0){
+                       x2 = atof(val);
+
+                   }
+                   else{
+                       if(y2 == 0){
+                           //stores into y2
+                           y2 = atof(val);
+                           c2 = y2 + x2;
+                           /*a = y2 − y1, b = x1 − x2, c = x1y2 − y1x2. || ax + by = c, p.113*/
+                           for (int k = 0; k < 15000; k++) {
+                               a = y2 - points[k].y;
+                               b = points[k].x - x2;
+                               float c = a + b;
+                              if( c == c2){
+                                 
+                                  totalPoints++;
+                                  
+                                //   printf("Line Match - i:%d @ ax+by = %f \n", k, c );
+                               }
+                           }
+                           
+                       }
+                }
+                   val = strtok(NULL, "    ");
+                   
+               }
+               x2 = 0;
+               y2 = 0;
+               j = 0;
+               i++;
+           }
+    for (int l = 0; l < 15000; l++) {
+        free(array[l]);
+    }
+    return totalPoints;
+
+}
+void p2halfQ3(char *filename,char *array[], struct Vertices points[], struct Vertices sortedPoints[], int length){
+    // float points[15000];
+         int i = 0;
+
+            int j = 0;
+            float c2 = 0, x2 = 0, y2 = 0;
+    int totalPoints = 0;
+         char *val;
+         p2InsertArray(filename, array);
+         p2ArraytoPoints(array, points);
+        
+    float a = 0;
+           float b = 0;
+           while (i != 29999) {
+               val =  strtok(array[i], "    ");
+               while (val != NULL) {
+                   if(x2 == 0){
+                       x2 = atof(val);
+
+                   }
+                   else{
+                       if(y2 == 0){
+                           //stores into y2
+                           y2 = atof(val);
+                           c2 = y2 + x2;
+                           /*a = y2 − y1, b = x1 − x2, c = x1y2 − y1x2. || ax + by = c, p.113*/
+                           for (int k = 0; k < 15000; k++) {
+                               a = y2 - points[k].y;
+                               b = points[k].x - x2;
+                               float c = a + b;
+                              if( c == c2){
+                                  
+                                  sortedPoints[totalPoints].x = points[k].x;
+                                  sortedPoints[totalPoints].y = points[k].y;
+                                 // printf("\n%f\n", sortedPoints[i].x);
+
+                                  totalPoints++;
+                                  
+                               }
+                           }
+                           
+                       }
+                }
+                   val = strtok(NULL, "    ");
+                   
+               }
+               x2 = 0;
+               y2 = 0;
+               j = 0;
+               i++;
+           }
+    
+    sortByX(length, 0, sortedPoints);
+    
+   
+          
+           
+    
+}
+
+
 
 void p2Question1(char *filename, char *array[], struct Vertices points[]){
-
+    
        // float points[15000];
         int i = 0;
            int j = 0;
@@ -130,8 +244,11 @@ void p2InsertArray(char *filename, char* arr[]){
 
 
 
-
-//1
+void swapf(float *i, float *i2){
+    float temp = *i;
+              *i = *i2;
+             *i2 = temp;
+}//1
 void swap(long *i, long *i2){
     long temp = *i;
               *i = *i2;
@@ -155,9 +272,7 @@ void question3(char *fileName){
     printf("\nTime: %dms ", elapsedTime);
 
     printf("\n\n");
-    
-
-    
+        
     printf("1.2 Begin QuickSort Algorithm using Divide & Conquer: O(nlogn)\n");
       struct timeb start, end;
         
@@ -224,30 +339,91 @@ void question2(long length, int start, long arr[], long *inversion, long *numOpe
     
 }
 //length - 1 for end of indices
+
 int partition(long length, int start, long arr[], long *inversion, long *numOperations){
+//consider remove the -1
+    long selected_element = arr[length ];
 
-    long selected_element = arr[length - 1];
-
-    int index = start - 1;
+    int counter = start - 1;
     //length - 2 because we'll be changing the last indices at the end
-    for (int j = start; j <= length-2; j++) {
+    int i = start;
+
+    while(i != length-1){
         (*numOperations)++;
 
-        if(arr[j] < selected_element){
+        if(arr[i] < selected_element){
             //convert from point to int, to increment
             (*inversion)++;
-            index++;
+            counter++;
             //consider creating function
-            swap(&arr[index], &arr[j]);
+            swap(&arr[counter], &arr[i]);
         }
     }
 
     (*inversion)++;
 
-    swap(&arr[index + 1], &arr[length-1]);
+    swap(&arr[counter + 1], &arr[length-1]);
 
-    return (index + 1);
+    return (counter + 1);
 }
+
+
+//length - 1 for end of indices
+int partitionByX(long length, int start, struct Vertices points[]){
+    float selected_element = points[length].x;
+
+    int counter = start - 1;
+   int i = start;
+    while(i != length){
+        if(points[i].x < selected_element){
+                   //convert from point to int, to increment
+                   counter++;
+                   //consider creating function
+                   swapf(&points[counter].x, &points[i].x);
+               }
+        i++;
+    }
+   
+    swapf(&points[counter + 1].x, &points[length].x);
+    return (counter + 1);
+}
+
+
+void sortByX(long length, int start, struct Vertices points[]){
+    if(start < length){
+        int s = partitionByX(length, start, points);
+        sortByX(s-1, start, points);
+        sortByX(length, s+1, points);
+         }
+    
+    
+}
+ 
+
+/*
+int partition(long length, int start, long arr[], long *inversion, long *numOperations)
+{
+    long pivot = arr[length]; // pivot
+    int i = (start - 1); // Index of smaller element
+  
+    for (int j = start; j <= length; j++)
+    {
+        // If current element is smaller than the pivot
+        if (arr[j] < pivot)
+        {
+            i++; // increment index of smaller element
+            swap(&arr[i], &arr[j]);
+        }
+    }
+    swap(&arr[i + 1], &arr[length]);
+    return (i + 1);
+}
+ */
+  
+/* The main function that implements QuickSort
+arr[] --> Array to be sorted,
+low --> Starting index,
+high --> Ending index */
 
 void insertToArray(char *filename, long arr[]){
     long length = getLength(filename);
