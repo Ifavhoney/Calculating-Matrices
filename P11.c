@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 void p2InsertArray(char *filename, char* arr[]){
      char buff[10000];
@@ -64,15 +65,89 @@ strcpy(arr[i], num5);
     fclose(fp);
 
 }
+bool validateAnagram(char *temp){
+    bool isValid = true;
+
+    
+                  //Validate
+                       for (int i  = 0; i < strlen(temp); i++) {
+                           printf("%c,", temp[i]);
+                           if(temp[i] != 'X'){
+                               printf("not a valid anagaram" );
+                               isValid = false;
+                               break;
+                           }
+                         }
+    return isValid;
+}
 
 int main(int argc, const char * argv[]) {
     char *fileName = malloc(30);
     strcpy(fileName, "data_4.txt");
     char *array[30000];
+    char *temp = malloc(1000);
+    int countAnagram;
     p2InsertArray(fileName, array);
- printf("%s", array[6]);
- int i = 0;
 
+    printf("Which string are you looking to anagram  \n");
+    scanf("%s", temp);
+    int i = 0;
+    strcpy(temp, "1802938834");
+    //ARRAY: 1804289383
+   // printf("%s", array[0]);
+    long tempLength = strlen(temp);
+    long tempLengthArray = strlen(array[0]);
+   
+        int arrayIndex = 0;
+        while(i != tempLength && arrayIndex != tempLengthArray){
+            /*
+            if(tempLength != tempLengthArray){
+                printf("???");
+                i = 0;
+                arrayIndex++;
+                continue;
+                   //Means no good so we'll continue
+               }
+             */
+            //e.g 1
+            char myTempChar = temp[i];
+            int j = 0;
+            printf("\ncurrChar: %c\n", myTempChar);
+            while(j != tempLength){
+                char myArrayChar = array[arrayIndex][j];
+                printf("%c\t", myArrayChar);
+                if(myTempChar == myArrayChar){
+                    printf("Found!%c @ index: %d \n", myTempChar, j);
+                    temp[i] = 'X';
+                    array[arrayIndex][j] = 'X';
+                    break;
+                }
+                j++;
+            }
+            
+            i++;
+            if(i == tempLength){
+              
+               // tempLengthArray++;
+             bool isValid = validateAnagram(temp);
+                if(isValid == true){
+                    
+                }
+               // printf("%s");
+                
+            }
+        
+        //printf("??%s\n", tempArray[sizeof);
+        printf("\n");
+     
+         
+          
+    }
+    //Retain array
+  p2InsertArray(fileName, array);
+
+    i = 0;
+    free(temp);
 while (i <= sizeof(array)/sizeof(array[0])){
     //empty
     if(strlen(array[i]) < 3 || strstr(array[i], " ") != NULL){
