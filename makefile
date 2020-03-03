@@ -1,8 +1,8 @@
-all: a2 main.o
-	gcc main.o a2 -o main
+P11:  P11.o
+	gcc P11.o -o P11
 
-main.o: main.c
-	gcc -c main.c -o main.o
+P11.o: P11.c
+	gcc -c P11.c -o P11.o
 
 a2: a2.c
 	gcc  -c a2.c -o a2
