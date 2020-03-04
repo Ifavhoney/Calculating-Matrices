@@ -4,9 +4,12 @@ P11:  P11.o
 P11.o: P11.c
 	gcc -c P11.c -o P11.o
 
-a2: a2.c
-	gcc  -c a2.c -o a2
+P12:  P12.o
+	gcc P12.o -o P12
+
+P12.o: P12.c
+	gcc -c P12.c -o P12.o
 
 clean:
 	rm *.o
-	rm main
+	rm  P11 P12

@@ -1,4 +1,5 @@
 
+/*
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -86,7 +87,7 @@ int totalAnagram(char *temp, char* array[], int length){
 
           int arrayIndex = 0;
           while(i != tempLength){
-              //invalid
+              //prevent out of bounds
               if(arrayIndex > length){
                   break;
               }
@@ -160,21 +161,4 @@ int main(int argc, const char * argv[]) {
     return 0;
  
 }
-
-  /*
-   DO NOT TOUCH
-    i = 0;
-    free(temp);
-while (i <= sizeof(array)/sizeof(array[0])){
-    //empty
-    if(strlen(array[i]) < 3 || strstr(array[i], " ") != NULL){
-break;
-    }
-    else{
-           free(array[i]);
-    }
-    i++;
-  
-}
-  */
-
+*/
