@@ -1,16 +1,10 @@
-//
-//  P21.c
-//  a3490
-//
-//  Created by Jason Eddy on 2020-03-02.
-//  Copyright © 2020 Jason Eddy. All rights reserved.
-//
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
+//Essentially turns file into an array (modified version of my A2 code)
 void p2InsertArray(char *filename, char* arr[]){
      char buff[10000];
     char num1[100];
@@ -65,12 +59,13 @@ strcpy(arr[i], num5);
     fclose(fp);
 
 }
+//Validates anagram by making sure all items are marked X
 bool validateAnagram(char *temp){
     bool isValid = true;
 
     
                   //Validate
-                       for (int i  = 0; i < strlen(temp); i++) {
+ for (int i  = 0; i < strlen(temp); i++) {
                          //  printf("%c,", temp[i]);
                            if(temp[i] != 'X'){
                                isValid = false;
@@ -79,7 +74,8 @@ bool validateAnagram(char *temp){
                          }
     return isValid;
 }
-int totalAnagram(char *temp, char* array[]){
+//Returns >= 0
+int totalAnagram(char *temp, char* array[], int length){
     long tempLength = strlen(temp);
     int countAnagram = 0;
     char *clonedTemp = malloc(1000);
@@ -91,16 +87,14 @@ int totalAnagram(char *temp, char* array[]){
           int arrayIndex = 0;
           while(i != tempLength){
               //invalid
-              if(arrayIndex > 29999){
-                  
+              if(arrayIndex > length){
                   break;
               }
               else{
-                  //skip those that are not the same length
                   long tempLengthArray = strlen(array[arrayIndex]);
-                  
+                  //skip those that are not the same length to improve time efficency
+
                   if(tempLengthArray != tempLength){
-                         //      printf("HHHHHERE %s, %s\n", temp, array[arrayIndex] );
                                i = 0;
                                arrayIndex++;
                               
@@ -111,124 +105,76 @@ int totalAnagram(char *temp, char* array[]){
               //user inputed variable in char
               char myTempChar = temp[i];
               int j = 0;
-            //  printf("\ncurrChar: %c\n", myTempChar);
               while(j != tempLength){
-                  //
+                  //we are comparing each char to char & marking X when found
                   char myArrayChar = array[arrayIndex][j];
-                //  printf("%c\t", myArrayChar);
                   if(myTempChar == myArrayChar){
-                   //   printf("Found!%c @ index: %d \n", myTempChar, j);
                       temp[i] = 'X';
                       array[arrayIndex][j] = 'X';
                       break;
                   }
                   j++;
               }
-              //1802938834
               i++;
               if(i == tempLength){
+                  //If all content is X then it is valid anagram
                bool isValid = validateAnagram(temp);
                   
                   if(isValid == true){
                       countAnagram++;
-                   //   printf("\nvalid anagram: %s @ arrayIndex %d", temp, arrayIndex);
                   }
-                  if(arrayIndex < 30000){
+                  //Reseting the i to iterate for the next index
+                  //Reseting the temp by cpying a cloned version to reset all Xs
+                  if(arrayIndex < length+1){
                       i = 0;
                       arrayIndex++;
                       strcpy(temp, clonedTemp);
                       continue;
                   }
               }
-          
-          //printf("??%s\n", tempArray[sizeof);
-         // printf("\n");
+
        
       }
+      //Returns >= 0
        return countAnagram;
 
 
 }
-void swap(int *i, int *i2)
-{
-    int temp = *i;
-    *i = *i2;
-    *i2 = temp;
-}
-long sortOneNumber(int num){
-    int j = 0;
-       int clone = num;
-
-       int length = 0;
-       while(clone != 0){
-           clone = clone /10;
-           length++;
-       }
-       printf("%d, length\n", length);
-       int orderNum[length];
-       for (int i = 0; i < length; i++) {
-           orderNum[i] = num % 10;
-           num = num / 10;
-       }
-    printf("\n\n");
-       for (int i = 0 ; i < length; i++) {
-            int min = i;
-           
-            for (j = i + 1; j < length; j++) {
-                if(orderNum[min] < orderNum[j]){
-                    min = j;
-                }
-            }
-            swap(&orderNum[min], &orderNum[i]);
-        }
-
- 
-
-    //turn into a number
-    char buff[length + 1];
-    for (int i =0; i<length; i++) {
-        
-           sprintf(&buff[i],"%d",orderNum[i]);
-       }
-    char *str;
-  long  ret = strtol(buff, &str, 10);
-    
-    return ret;
-}
-//length - 1 for end of indices
-
-
 int main(int argc, const char * argv[]) {
     char *fileName = malloc(30);
     strcpy(fileName, "data_4.txt");
-    char *unsortedarray[30000];
-    char *sortedarray[30000];
-    int intArray[30000];
-    int intArray2[30000];
-    int j = 0;
-    //turns into an int
-    p2InsertArray(fileName, unsortedarray);
-    for (int i = 0; i < 30000; i++) {
-        intArray[i] = atoi(unsortedarray[i]);
-    }
+    //Length-1 of data_4.txt (adjust according to length of file)
+    int length = 29999;
+    char *array[length];
     
-  printf("\n%ld\n",sortOneNumber(1804289383));
-    
-    for (int i = 0 ; i < 30000; i++) {
-        int min = i;
-        for (j = i + 1; j < 30000; j++) {
-            if(intArray[min] > intArray[j]){
-                min = j;
-            }
-        }
-        swap(&intArray[min], &intArray[i]);
-    }
-    //Re-sort
-    
+    char *temp = malloc(1000);
 
-    
-    
-    
+    p2InsertArray(fileName, array);
+
+    printf("Which string are you looking to anagram  \n");
+    scanf("%s", temp);
+    int _totalAnagram = totalAnagram(temp,array, length);
+    printf("\ntotal anagram: %d\n",_totalAnagram );
+  p2InsertArray(fileName, array);
+  
     return 0;
  
 }
+
+  /*
+   DO NOT TOUCH
+    i = 0;
+    free(temp);
+while (i <= sizeof(array)/sizeof(array[0])){
+    //empty
+    if(strlen(array[i]) < 3 || strstr(array[i], " ") != NULL){
+break;
+    }
+    else{
+           free(array[i]);
+    }
+    i++;
+  
+}
+  */
+
