@@ -1,9 +1,12 @@
 
+/*
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <sys/timeb.h>
 
+//Essentially turns file into an array (modified version of my A2 code)
 void p2InsertArray(char *filename, char* arr[]){
      char buff[10000];
     char num1[100];
@@ -58,7 +61,7 @@ strcpy(arr[i], num5);
     fclose(fp);
 
 }
-
+//Swap function between one indices & the other
 void swap(long *i, long *i2)
 {
     long temp = *i;
@@ -67,19 +70,23 @@ void swap(long *i, long *i2)
 }
 //sorts by signature
 long sortOneNumber(long num){
-    int j = 0;
+    //Cloning number
+        int j = 0;
        long clone = num;
 
        int length = 0;
+       //Using number to dynamically find the length 
        while(clone != 0){
            clone = clone /10;
            length++;
        }
+        //Storing the last digit inside the array
        long orderNum[length];
        for (int i = 0; i < length; i++) {
            orderNum[i] = num % 10;
            num = num / 10;
        }
+       //Ordering the array in descending order
        for (int i = 0 ; i < length; i++) {
             int min = i;
            
@@ -91,23 +98,26 @@ long sortOneNumber(long num){
             swap(&orderNum[min], &orderNum[i]);
         }
 
- 
-
-    //turn into a number
+    //Turning our array into one string
     char buff[length + 1];
     for (int i =0; i<length; i++) {
         
            sprintf(&buff[i],"%ld",orderNum[i]);
        }
+    //turning string into long number
     char *str;
   long  ret = strtol(buff, &str, 10);
     
     return ret;
 }
-//length - 1 for end of indices
 
 
 int main(int argc, const char * argv[]) {
+     //Neccessary structs to find time
+      struct timeb firstStart, firstEnd;
+        int elapsedTime = 0;
+      ftime(&firstStart);
+
     char *fileName = malloc(30);
     strcpy(fileName, "data_4.txt");
     //Length of data_4.txt (adjust according to length of file)
@@ -136,7 +146,6 @@ int main(int argc, const char * argv[]) {
         }
         swap(&longArray[min], &longArray[i]);
     }
-    //printf("%ld\n @ i %d|||\n", unsortedarray[26209], 26209);
     
     int i = 0;
     int totalAnagram = 0;
@@ -149,9 +158,19 @@ int main(int argc, const char * argv[]) {
                 i++;
     }
     printf("Total Anagram: %d", totalAnagram);
-    
+   
+
+  //Calculating the total time & if the time is less than 0ms, set to 0
+ ftime(&firstEnd);
+      elapsedTime = firstEnd.millitm - firstStart.millitm;
+      if(elapsedTime <=0){
+          elapsedTime = 0;
+      }
+
+      printf("\nelasedTime for presorting technique %dms\n", elapsedTime);
     return 0;
  
 }
+*/
  
  

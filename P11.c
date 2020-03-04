@@ -1,9 +1,10 @@
 
-/*
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <sys/timeb.h>
 
 //Essentially turns file into an array (modified version of my A2 code)
 void p2InsertArray(char *filename, char* arr[]){
@@ -142,6 +143,11 @@ int totalAnagram(char *temp, char* array[], int length){
 
 }
 int main(int argc, const char * argv[]) {
+     //Neccessary structs to find time
+      struct timeb firstStart, firstEnd;
+        int elapsedTime = 0;
+      ftime(&firstStart);
+
     char *fileName = malloc(30);
     strcpy(fileName, "data_4.txt");
     //Length-1 of data_4.txt (adjust according to length of file)
@@ -156,9 +162,14 @@ int main(int argc, const char * argv[]) {
     scanf("%s", temp);
     int _totalAnagram = totalAnagram(temp,array, length);
     printf("\ntotal anagram: %d\n",_totalAnagram );
-  p2InsertArray(fileName, array);
-  
+    
+    //Calculating the total time & if the time is less than 0ms, set to 0
+ ftime(&firstEnd);
+      elapsedTime = firstEnd.millitm - firstStart.millitm;
+      if(elapsedTime <=0){
+          elapsedTime = 0;
+      }
+      printf("\nelasedTime for bruteforce technique %dms\n", elapsedTime);  
     return 0;
  
 }
-*/
