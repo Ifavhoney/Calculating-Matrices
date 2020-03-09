@@ -20,6 +20,11 @@ typedef struct Map {
      int value;
 } Map;
 
+typedef struct Results {
+     int shifts;
+     int matches;
+} Results;
+
 void dataToArray(FILE *fp, char *arr[]){
       char buff[256];
 
@@ -120,7 +125,7 @@ Map* shiftTable(char *word){
     }
     //At this point, the shifting is correct;
     Map *map;
-    map   = malloc(sizeof(Map));
+    map   = malloc(4496);
 
     shift[size] = (int)strlen(word);
     int *s = shift;
@@ -131,18 +136,7 @@ Map* shiftTable(char *word){
         map[i].value = s[i];
 
     }
-/*
- for (int i = 0 ; i < size; i++) {
-       int min = i;
-      
-       for (j = i + 1; j < size; j++) {
-           if((int)map[min].key < (int)map[j].key){
-               min = j;
-           }
-       }
-       swap((int)map[min].key, (int)map[i].key);
-  }
- */
+
 
     return map;
 }
@@ -162,13 +156,16 @@ int Table(char a, Map *map ){
     return length;
 }
 //Credits to the book
-int HorspoolMatching(char *test, char *prompt){
+Results HorspoolMatching(char *test, char *prompt){
      int size = (int)strlen(prompt)-1;
 
        Map *map = shiftTable(prompt);
-
+    Results result;
         //starts at the initial length
        int i = size; //m-1
+    result.matches = 0;
+    //-1 shifts means not found
+    result.shifts = -1;
        int i2 = (int)strlen(test)-1; //n-1
        do {
         
@@ -181,17 +178,24 @@ int HorspoolMatching(char *test, char *prompt){
            //our size is one less than the length & so if equal size, our match is found
            if(k == size+1){
                printf("found!");
-               return i - size+2;
+                result.shifts += i - size+2;
+               //goes to the next index (only way to return multiple data from one buffer)
+               result.matches++;
+               i++;
+              // result += i - size+2;
+
            }
            else{
             
                //uses our table to shfit accordingly
+               
                i = i + Table(test[i], map);
-
+           }
+           if(k >= size){
                
            }
        } while (i <= i2);
-       return -1;
+       return result;
     
        
 }
@@ -214,24 +218,29 @@ int main(int argc, const char * argv[]) {
 
     //Prompt
     char *prompt = calloc(1, 100);
-    strcpy(prompt, "BARBERSHOP");
-  int j = HorspoolMatching("JIM SAW ME IN A BARBERSHOP", prompt);
-    printf("%d", j);
-
+    strcpy(prompt, "University");
 
     int i =0;
-      int counter = 0;
-    /*
+      int matches = 0;
+    int shifts = 0;
+
+    //Finds total matches in the given array
      while(i < length){
      //Find matches per line
-    if(j > 0 && j != -1){
-      counter += j;
+         Results j = HorspoolMatching(array[i], prompt);
+     
+    if(j.shifts > 0 && j.shifts != -1){
+        matches+= j.matches;
+      shifts += j.shifts;
+        
     }
     
     i++;
      }
-    printf("matches: %d", counter);
-     */
+    printf("matches: %d", matches);
+    printf("shifts: %d", shifts);
+
+    
     //Calculating the total time & if the time is less than 0ms, set to 0
 
     ftime(&firstEnd);

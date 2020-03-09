@@ -10,13 +10,17 @@ P12:  P12.o
 P12.o: P12.c
 	gcc -c P12.c -o P12.o
 
+P21:  P21.o
+	gcc P21.o -o P21
+
 P21.o: P21.c
 	gcc -c P21.c -o P21.o
 
+P22:  P22.o
+	gcc P22.o -o P22
 
-P21.o: P22.c
-	gcc -c P21.c -o P21.o
-
+P22.o: P22.c
+	gcc -c P22.c -o P22.o
 clean:
 	rm *.o
-	rm  P11 P12
+	rm  P11 P12 P22 P21
