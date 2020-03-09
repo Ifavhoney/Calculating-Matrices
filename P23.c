@@ -1,10 +1,10 @@
-//
-//  P23.c
-//  a3490
-//
-//  Created by Jason Eddy on 2020-03-08.
-//  Copyright © 2020 Jason Eddy. All rights reserved.
-//
+/*
+Name: Jason N'Guessan
+ID: 1079936
+Date: March 9th 2020
+Assignment: Assignment3
+*/
+/*
 
 #include <stdio.h>
 #include <string.h>
@@ -327,3 +327,4 @@ int main(int argc, const char * argv[]) {
     return 0;
  
 }
+*/

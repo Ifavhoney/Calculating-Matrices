@@ -1,3 +1,9 @@
+/*
+Name: Jason N'Guessan
+ID: 1079936
+Date: March 9th 2020
+Assignment: Assignment3
+*/
 
 /*
 #include <stdio.h>
@@ -172,5 +178,6 @@ int main(int argc, const char * argv[]) {
  
 }
 */
+
  
  

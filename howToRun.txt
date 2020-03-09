@@ -1,0 +1,9 @@
+To Run code
+
+1. uncomment the question you wish to test
+
+2. Call make according to question e.g make ./P11
+
+3. Once done testing, comment or might face duplicate main error
+
+4. Repeat for P12, P21, P22, P23

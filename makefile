@@ -29,4 +29,4 @@ P23.o: P23.c
 	gcc -c P23.c -o P23.o
 clean:
 	rm *.o
-	rm  P11 P12 P22 P21
+	rm  P11 P12 P22 P21 P23

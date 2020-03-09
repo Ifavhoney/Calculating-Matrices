@@ -1,11 +1,12 @@
-//
-//  P22.c
-//  a3490
-//
-//  Created by Jason Eddy on 2020-03-08.
-//  Copyright © 2020 Jason Eddy. All rights reserved.
-//
 /*
+Name: Jason N'Guessan
+ID: 1079936
+Date: March 9th 2020
+Assignment: Assignment3
+*/
+
+/*
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -243,13 +244,15 @@ int main(int argc, const char * argv[]) {
     
     //Calculating the total time & if the time is less than 0ms, set to 0
 
+
     ftime(&firstEnd);
-      elapsedTime = firstEnd.millitm - firstStart.millitm;
+      elapsedTime =  firstEnd.millitm - firstStart.millitm;
       if(elapsedTime <=0){
           elapsedTime = 0;
       }
-   printf("\nelasedTime for bruteforce technique %dms\n", elapsedTime);
+   printf("\nelasedTime for Horspool's technique %dms\n", elapsedTime);
     return 0;
  
 }
 */
+
