@@ -21,6 +21,12 @@ P22:  P22.o
 
 P22.o: P22.c
 	gcc -c P22.c -o P22.o
+
+P23:  P23.o
+	gcc P23.o -o P23
+
+P23.o: P23.c
+	gcc -c P23.c -o P23.o
 clean:
 	rm *.o
 	rm  P11 P12 P22 P21
