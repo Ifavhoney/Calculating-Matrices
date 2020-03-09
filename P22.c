@@ -5,7 +5,7 @@
 //  Created by Jason Eddy on 2020-03-08.
 //  Copyright © 2020 Jason Eddy. All rights reserved.
 //
-
+/*
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -99,11 +99,11 @@ Map* shiftTable(char *word){
               
               
                    if(arr[k] == arr[l] && shift[l] > 0 ){
-                       printf("l: %d, K: %d, j-1: %d, %c, cloneK:%d \n ", l,k,shift[k], arr[k], cloneK);
+                      // printf("l: %d, K: %d, j-1: %d, %c, cloneK:%d \n ", l,k,shift[k], arr[k], cloneK);
                        shift[dupIndex] = shift[l];
                        //setting index 0 to shift since the loop ignores duplicate -1, with index = 0  && more than 2 duplicates
                        if(arr[0] == arr[l] && shift[0] == -1){
-                           printf("here");
+                        //   printf("here");
                            shift[0] = shift[l];
                                        }
                        break;
@@ -111,7 +111,7 @@ Map* shiftTable(char *word){
                 }
                }
                      
-                       printf("done\n");
+                    //   printf("done\n");
                break;
 
                    }
@@ -177,12 +177,10 @@ Results HorspoolMatching(char *test, char *prompt){
            }
            //our size is one less than the length & so if equal size, our match is found
            if(k == size+1){
-               printf("found!");
                 result.shifts += i - size+2;
                //goes to the next index (only way to return multiple data from one buffer)
                result.matches++;
                i++;
-              // result += i - size+2;
 
            }
            else{
@@ -217,8 +215,10 @@ int main(int argc, const char * argv[]) {
    // strcpy(test,"JIM SAW ME IN A BARBERSHOP");
 
     //Prompt
+    
     char *prompt = calloc(1, 100);
-    strcpy(prompt, "University");
+    printf("Please enter a string to search: \n");
+    scanf("%s", prompt);
 
     int i =0;
       int matches = 0;
@@ -252,3 +252,4 @@ int main(int argc, const char * argv[]) {
     return 0;
  
 }
+*/

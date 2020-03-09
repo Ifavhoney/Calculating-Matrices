@@ -1,3 +1,4 @@
+/*
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -7,7 +8,12 @@
 
 //2.1 A program to implement a brute force algorithm. (10%)
 //Essentially turns file into an array
-/*
+typedef struct Results {
+     int shifts;
+     int matches;
+} Results;
+
+
 int dataToArray(FILE *fp, char *arr[]){
       char buff[256];
             int i = 0;
@@ -33,26 +39,34 @@ int dataToArray(FILE *fp, char *arr[]){
 
 
 }
+
 //From book, as stated in a3 guide
-int BruteForceStringMatch(char *line, char *pattern){
+Results BruteForceStringMatch(char *line, char *pattern){
     int matches = 0;
+    Results result;
+    result.matches = 0;
+    result.shifts =0;
+
     for (int i = 0; i < strlen(line) + 1; i++) {
         int j = 0;
         //always begins at the beginning of the pattern
         //compares the current letter with the the next one (may run once)
         while(j < strlen(pattern) && pattern[j] == line[j + i]){
+            //counting all the shifts
             j++;
+            result.shifts+= j;
+
         
         }
-        //if at one point the pattern is good, 
+        //if at one point the pattern is good,
         if(j == strlen(pattern)){
+            result.matches++;
             matches++;
-            
         }
       
     }
       //returns the number of times it appears on line
-    return matches;
+    return result;
     
 }
 
@@ -70,18 +84,25 @@ int main(int argc, const char * argv[]) {
     dataToArray(fp, array);
   
     int i =0;
-     int counter = 0;
+     int matches = 0;
+    int shifts = 0;
+    char *prompt = calloc(1, 100);
+
+    printf("Please enter a string to search: \n");
+          scanf("%s", prompt);
     while(i < length){
-    //Find matches per line
-   int j = BruteForceStringMatch(array[i], "Undergraduate");
-   if(j > 0){
-     counter += j;
+    //Find matches & shifts per line
+   Results j = BruteForceStringMatch(array[i], prompt);
+   if(j.matches > 0){
+     matches += j.matches;
+       shifts += j.shifts;
    }
    
    i++;
     }
-   printf("matches: %d", counter);
-    
+   printf("matches: %d", matches);
+    printf("shifts: %d", shifts);
+
     
     ftime(&firstEnd);
       elapsedTime = firstEnd.millitm - firstStart.millitm;
@@ -92,5 +113,6 @@ int main(int argc, const char * argv[]) {
     return 0;
  
 }
-
 */
+
+
