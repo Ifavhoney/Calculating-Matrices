@@ -5,7 +5,7 @@
 //  Created by Jason Eddy on 2020-03-08.
 //  Copyright © 2020 Jason Eddy. All rights reserved.
 //
-/*
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -41,6 +41,13 @@ void dataToArray(FILE *fp, char *arr[]){
             printf("unable to open file");
         }
 
+}
+//Swap function between one indices & the other
+void swap(long *i, long *i2)
+{
+    long temp = *i;
+    *i = *i2;
+    *i2 = temp;
 }
 
 Map* shiftTable(char *word){
@@ -119,12 +126,74 @@ Map* shiftTable(char *word){
     int *s = shift;
     //Send it as a struct to ease shifting
     for (int i = (int)size; i >= 0; i--) {
+        
         map[i].key = word[i];
         map[i].value = s[i];
-       // printf("Index: %d, shift: %d : %c\n", i, s[i], word[i]);
 
     }
+/*
+ for (int i = 0 ; i < size; i++) {
+       int min = i;
+      
+       for (j = i + 1; j < size; j++) {
+           if((int)map[min].key < (int)map[j].key){
+               min = j;
+           }
+       }
+       swap((int)map[min].key, (int)map[i].key);
+  }
+ */
+
     return map;
+}
+
+int Table(char a, Map *map ){
+    int length =0;
+    
+    while (map[length].key > 64 && map[length].key < 122) {
+        length++;
+    }
+    for (int i = 0; i <= length-1; i++) {
+        if(map[i].key == a){
+            return map[i].value;
+        }
+    }
+
+    return length;
+}
+//Credits to the book
+int HorspoolMatching(char *test, char *prompt){
+     int size = (int)strlen(prompt)-1;
+
+       Map *map = shiftTable(prompt);
+
+        //starts at the initial length
+       int i = size; //m-1
+       int i2 = (int)strlen(test)-1; //n-1
+       do {
+        
+           int k = 0;
+           //verifies when matched
+           while (k <= size && (prompt[size-k] ) == (test[i-k]) ) {
+               k = k+1;
+
+           }
+           //our size is one less than the length & so if equal size, our match is found
+           if(k == size+1){
+               printf("found!");
+               return i - size+2;
+           }
+           else{
+            
+               //uses our table to shfit accordingly
+               i = i + Table(test[i], map);
+
+               
+           }
+       } while (i <= i2);
+       return -1;
+    
+       
 }
 
 int main(int argc, const char * argv[]) {
@@ -139,12 +208,30 @@ int main(int argc, const char * argv[]) {
     char *array[length];
     
     dataToArray(fp, array);
-    char *test = calloc(1, 100);
-    strcpy(test,"JIM SAW ME IN A BARBERSHOP");
-    Map *map = shiftTable("BARBER");
- 
+    //Test
+   // char *test = calloc(1, 100);
+   // strcpy(test,"JIM SAW ME IN A BARBERSHOP");
+
+    //Prompt
+    char *prompt = calloc(1, 100);
+    strcpy(prompt, "BARBERSHOP");
+  int j = HorspoolMatching("JIM SAW ME IN A BARBERSHOP", prompt);
+    printf("%d", j);
+
+
+    int i =0;
+      int counter = 0;
+    /*
+     while(i < length){
+     //Find matches per line
+    if(j > 0 && j != -1){
+      counter += j;
+    }
     
-  
+    i++;
+     }
+    printf("matches: %d", counter);
+     */
     //Calculating the total time & if the time is less than 0ms, set to 0
 
     ftime(&firstEnd);
@@ -152,8 +239,7 @@ int main(int argc, const char * argv[]) {
       if(elapsedTime <=0){
           elapsedTime = 0;
       }
-//      printf("\nelasedTime for bruteforce technique %dms\n", elapsedTime);
+   printf("\nelasedTime for bruteforce technique %dms\n", elapsedTime);
     return 0;
  
 }
-*/
