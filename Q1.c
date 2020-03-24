@@ -8,7 +8,21 @@
 //Essentially turns file into an array
 #define LENGTH 2045
 
-void dataToArray(FILE *fp, char arr[LENGTH][225]){
+//Remove spaces from a line that would otherwise ruin the word count
+char* normalizedLine(char *selectedLine){
+    char *line = malloc(256);
+              strtok(selectedLine, "\n"); // remove any newlines
+               char *tempWord = strtok(selectedLine, " "); //gets the first word
+                while(tempWord != NULL) {
+                  strcat(line, tempWord);
+                  strcat(line, " \0");
+                  tempWord = strtok(NULL, " "); //Resets
+                }
+    return line;
+}
+
+
+void dataToArray(FILE *fp, char arr[LENGTH][LENGTH]){
       char buff[256];
 
         if (fp != NULL)
@@ -17,7 +31,7 @@ void dataToArray(FILE *fp, char arr[LENGTH][225]){
             int currLine = 0;
             int i = 0;
             int j=0; int index=0;
-            char *word = malloc(245);
+            char *word = NULL;
             char *temp[1000];
             while (fgets(buff, 256, fp) != NULL)
             {
@@ -28,40 +42,50 @@ void dataToArray(FILE *fp, char arr[LENGTH][225]){
                 i++;
                 length++;
                 
+                
             }
             
-            
+        
+            while (currLine != length) {
+                word = malloc(2156);
+                if(temp[currLine] == NULL ){
+                    currLine++;
+                    free(word);
+                    continue;
+                    
+                }
+                strcpy(word, temp[currLine]);
+             
+           char *line = normalizedLine(word);
            
-                strcpy(word, "coding    informationn         published in this undergraduate calendar outlines the");
-            
-             for(i=0;i<(strlen(word));i++)
-                                    {
-                                        
-                                        if(word[i]==' '||word[i]=='\n')
-                                        {
-                                
-                                
-                                            arr[index][j]='\0';
-                                            j=0;
-                                            index++;
-                                            while (word[i] == ' ') {
-                                                i++;
-                                            }
-                                            i--;
-                                            
-                                        }
-                                        else
-                                        {
-                                          
-                                           // printf("%c", word[i]);
-                                            arr[index][j]=word[i];
-                                            j++;
-                                            
-                                        }
-                                    }
-         
+       for(i=0;i<(strlen(line));i++)
+                                               {
+                                                   
+                                                   if(line[i]==' '||line[i]=='\n')
+                                                   {
+                                           
+                                           
+                                                       arr[index][j]='\0';
+                                                       j=0;
+                                                       index++;
+                                                      
+                                                       
+                                                   }
+                                                   else
+                                                   {
+                                                     
+                                                      // printf("%c", word[i]);
+                                                       arr[index][j]=line[i];
+                                                       j++;
+                                                       
+                                                   }
+                                               }
+
                 //reset
-            
+                
+                free(word);
+                currLine++;
+            }
           
 
         }
@@ -80,15 +104,11 @@ int main(int argc, const char * argv[]) {
 
    FILE *fp = fopen("data_7.txt", "r");
    //Length-1 of data_4.txt (adjust according to length of file)
-   char array[LENGTH][225];
+   int length = LENGTH;
+   char array[length][length];
    
    dataToArray(fp, array);
-    int i = 0;
-    while (i != 9) {
-        printf("-%s\n", array[i]);
-        i++;
-    }
-    //printf("\n\n%ld\t", strlen(array));
+    printf("%s", array[2045]);
     
     
     
