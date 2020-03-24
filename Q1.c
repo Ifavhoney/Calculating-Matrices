@@ -8,41 +8,62 @@
 //Essentially turns file into an array
 #define LENGTH 2045
 
-
-void dataToArray(FILE *fp, char arr[LENGTH][256]){
+void dataToArray(FILE *fp, char arr[LENGTH][225]){
       char buff[256];
 
         if (fp != NULL)
         {
             int length = 0;
+            int currLine = 0;
             int i = 0;
-            int t_Index = 0;;
-            char temp[220];
-            int ch;
-            while ((ch=fgetc(fp)) != EOF)// skip whitespace)
+            int j=0; int index=0;
+            char *word = malloc(245);
+            char *temp[1000];
+            while (fgets(buff, 256, fp) != NULL)
             {
-                if(ch != ' '){
-                    temp[t_Index] = ch;
-                    t_Index++;
-                }
-                else{
-                    printf("%s\n", temp);
-
-                    //done
-                   // strcpy(arr[i], temp);
-                    temp[0] = '\0';
-                    t_Index = 0;
-
-
-                    i++;
-
-                }
+            
+                temp[i] = malloc(strlen(buff) + 5 );
         
-             
+                strcpy(temp[i], buff);
+                i++;
+                length++;
                 
             }
-                     
+            
+            
+           
+                strcpy(word, "coding    informationn         published in this undergraduate calendar outlines the");
+            
+             for(i=0;i<(strlen(word));i++)
+                                    {
+                                        
+                                        if(word[i]==' '||word[i]=='\n')
+                                        {
+                                
+                                
+                                            arr[index][j]='\0';
+                                            j=0;
+                                            index++;
+                                            while (word[i] == ' ') {
+                                                i++;
+                                            }
+                                            i--;
+                                            
+                                        }
+                                        else
+                                        {
+                                          
+                                           // printf("%c", word[i]);
+                                            arr[index][j]=word[i];
+                                            j++;
+                                            
+                                        }
+                                    }
+         
+                //reset
+            
           
+
         }
         else
         {
@@ -59,12 +80,15 @@ int main(int argc, const char * argv[]) {
 
    FILE *fp = fopen("data_7.txt", "r");
    //Length-1 of data_4.txt (adjust according to length of file)
-   char arr[2045][256];
+   char array[LENGTH][225];
    
-   dataToArray(fp, arr);
-    
-    
-   // printf("%s", array[203]);
+   dataToArray(fp, array);
+    int i = 0;
+    while (i != 9) {
+        printf("-%s\n", array[i]);
+        i++;
+    }
+    //printf("\n\n%ld\t", strlen(array));
     
     
     
