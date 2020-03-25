@@ -105,46 +105,7 @@ void OptimalBST(char *word){
     char C[n][n];
     char* R[n][n];
     
-    //randomly assigns the first number
-    float lastNum = 0;
-    srand((unsigned)time(NULL));
-    for (int i = 0; i < strlen(word); i++) {
-        //move time
-        float prob = ((float)rand()/RAND_MAX) * 10;
-        lastNum = prob;
-        C[0][0] = prob;
-      //  sprintf(C[i][i], "%d", i);
-        if(i == 2){
-            //C[0][0] = prob;
-        }
-        
-
-    }
-    float total = 0;
-    int l = 0;
-    while (true) {
-        
-        float prob = (float)rand()/RAND_MAX;
-        //change decimal places
-        
-        float value = floorf(prob * 10) / 10;
-        if(value  < 0.1){
-            value = 0.1;
-        }
-        C[l][l] = (value) * 10;
-        total += value;
-        l++;
-        if(l == 3){
-        if((total == 1.0) && ((l) == (strlen(word))) ){
-            printf("\ngood\n");
-            break;
-        }
-        else{
-            total = 0;
-            l = 0;
-        }
-                   }
-    }
+    
     
     for (int i = 0; i < n; i++) {
         
