@@ -21,6 +21,41 @@ char* normalizedLine(char *selectedLine){
     return line;
 }
 
+void OptimalBST(char *word){
+    long n = strlen(word);
+    char C[n][n];
+    char* R[n][n];
+        for (int i = 1; i < n; i++) {
+        C[i][i - 1] = 0;
+        C[i][i] = word[i];
+        R[i][i] = i;
+        C[n+1][n] = 0;
+        int sum = 0;
+        for (int d = 1; d < n-1; d++) {
+            for (i = 1; i < n - d; i++) {
+                int j = i + d;
+                int minVal = 9999;
+                int kmin = 0;
+                for (int k = i; k < j; k++) {
+                    if((C[i][k-1] + C[k + 1][j]) < minVal){
+                        minVal = C[i][k - 1] + C[k + 1][j];
+                        kmin = k;
+                        
+                    }
+                }
+                R[i][j] = kmin;
+                sum = word[i];
+                for (int s = i+1; s < j; s++) {
+                    sum = sum + word[s];
+                }
+                C[i][j] = minVal + sum;
+                
+                
+            }
+        }
+
+    }
+}
 
 void dataToArray(FILE *fp, char arr[LENGTH][LENGTH]){
       char buff[256];
