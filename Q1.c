@@ -21,6 +21,85 @@ char* normalizedLine(char *selectedLine){
     return line;
 }
 
+void addProbability(char *word, char *C[]){
+    long n = strlen(word);
+    float P[n];
+
+    //randomly assigns the first number
+    float lastNum = 0;
+    srand((unsigned)time(NULL));
+    for (int i = 0; i < strlen(word); i++) {
+        //move time
+        float prob = ((float)rand()/RAND_MAX) * 10;
+        lastNum = prob;
+        P[0] = prob;
+      //  sprintf(P[i][i], "%d", i);
+        if(i == 2){
+            //P[0][0] = prob;
+        }
+        
+
+    }
+    float total = 0;
+    int l = 0;
+    int factor = 0;
+    //10 - 19 character words
+    if(strlen(word) >= 10 && strlen(word) < 20 ){
+        factor = 1;
+    }
+    //20 to 29 character words
+    if(strlen(word) >= 20 && strlen(word) < 30 ){
+          factor = 2;
+      }
+    while (true) {
+        
+        float prob = (float)rand()/RAND_MAX;
+        //change decimal places
+        float value = 0;
+         value = floorf(prob * 10) / 10;
+
+    
+        
+        if(value  < 0.1){
+            value = 0.1;
+        }
+        P[l] = (value)/(factor+1);
+
+        total += value;
+        l++;
+        if(l == strlen(word)){
+         if(strlen(word) >= 10){
+             total = total - factor;
+             }
+
+        if((total == 1.0) && ((l) == (strlen(word))) ){
+            printf("\ngood\n");
+            break;
+        }
+        else{
+            total = 0;
+            l = 0;
+        
+        }
+                   }
+    }
+    total = 0;
+    char temp[20];
+    printf("%s\n", word);
+    for (int i = 0; i < n; i++) {
+        total += (P[i]);
+        
+       // printf("num: %d %f\n", i+1, (P[i]));
+        strncpy(temp, word + (i), 1);
+        printf("%s\n", temp);
+        C[i] = malloc(2);
+        strcpy(C[i], temp);
+       // strcpy(<#char *__dst#>, <#const char *__src#>)
+
+    }
+    printf("%f", total);
+}
+
 void OptimalBST(char *word){
  long n = strlen(word);
     char C[n][n];
