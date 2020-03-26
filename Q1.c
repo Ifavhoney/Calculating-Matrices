@@ -109,10 +109,23 @@ float weight(int key1, int key2, BSTProb *prob){
 }
 
 void OptimalBST(char *word){
- long n = strlen(word);
-    char C[n][n];
+   long n = strlen(word);
     char* R[n][n];
+    BSTProb key[n];
+    float C[n][n];
+    addProbability(word, key);
     
+    float r = weight(1,2, key);
+    
+    printf("\n");
+    for (int a = 0; a <= strlen(word); a++) {
+        C[a ][a] = 0;
+        for (int b = a + 1 ; b <= strlen(word) ; b++) {
+        
+          //  C[j-1-i,j] =
+            printf("C[%d][%d]\n",0 + j - 1-i, j);
+        }
+    }
     
     
     for (int i = 0; i < n; i++) {
