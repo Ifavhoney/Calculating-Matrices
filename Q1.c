@@ -100,6 +100,14 @@ void addProbability(char *word, char *C[]){
     printf("%f", total);
 }
 
+float weight(int key1, int key2, BSTProb *prob){
+        float total = 0;
+          for (int i = key1+1; i <= key2; i++) {
+              total += prob[i].prob;
+       }
+    return total;
+}
+
 void OptimalBST(char *word){
  long n = strlen(word);
     char C[n][n];
