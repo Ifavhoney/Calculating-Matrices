@@ -118,14 +118,18 @@ void OptimalBST(char *word){
     float r = weight(1,2, key);
     
     printf("\n");
-    for (int a = 0; a <= strlen(word); a++) {
+   for (int a = 0; a <= strlen(word); a++) {
         C[a ][a] = 0;
         for (int b = a + 1 ; b <= strlen(word) ; b++) {
-        
-          //  C[j-1-i,j] =
-            printf("C[%d][%d]\n",0 + j - 1-i, j);
+            int i = b - 1-a;
+            int j = b;
+            int total = j - i;
+            for (int k = 1; k <= total; k++) {
+                printf("C[%d][%d] = C[%d][%d] \n",i, j, i, j-k );
+            }
         }
     }
+    
     
     
     for (int i = 0; i < n; i++) {
