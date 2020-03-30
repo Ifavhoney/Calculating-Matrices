@@ -292,10 +292,10 @@ void OptimalBST(BSTFreq *array, int length)
 
                 //  C[i][j] = C[i][j-k] + C[ (j-k)+1][j] + weight(i, j, key);
 
-                printf("\nC[%d][%d] = %f", i, j, C[i][j]);
                 printf("\nWord:[%d][%d] = %s, root %f", i, j, R[i][j].word, R[i][j].root);
+                printf("\nWord:[%d][%d] = %s, frequency %f", i, j, R[i][j].word, C[i][j]);
             }
-                }
+        }
     }
 
     //initialize
@@ -374,7 +374,7 @@ int main(int argc, const char *argv[])
     }
 
     //index starts at 0
-    OptimalBST(mainArray, i2 - 1);
+    OptimalBST(mainArray, 500 - 1);
 
     BSTFreq second[5];
     //dummy
