@@ -232,7 +232,7 @@ void OptimalBST(BSTFreq *array, int length)
             //We are setting where the min cost is 1 to make code maneageable
             if ((j - i) == 1)
             {
-                C[i][j] = array[j].frequency;
+                //  C[i][j] = array[j].frequency;
 
                 R[i][j].root = array[j].frequency;
             }
@@ -292,8 +292,8 @@ void OptimalBST(BSTFreq *array, int length)
 
                 //  C[i][j] = C[i][j-k] + C[ (j-k)+1][j] + weight(i, j, key);
 
-                printf("\nWord:[%d][%d] = %s, root %f", i, j, R[i][j].word, R[i][j].root);
-                printf("\nWord:[%d][%d] = %s, frequency %f", i, j, R[i][j].word, C[i][j]);
+                // printf("\nWord:[%d][%d] = %s, root %f", i, j, R[i][j].word, R[i][j].root);
+                // printf("\nWord:[%d][%d] = %s, frequency %f", i, j, R[i][j].word, C[i][j]);
             }
         }
     }
@@ -356,6 +356,7 @@ int main(int argc, const char *argv[])
                     i2++;
                     array2[i2] = malloc(strlen(word) + 1);
                     strcpy(array2[i2], word);
+
                     mainArray[i2].word = word;
                 }
             }
@@ -374,8 +375,9 @@ int main(int argc, const char *argv[])
     }
 
     //index starts at 0
-    OptimalBST(mainArray, 500 - 1);
+    OptimalBST(mainArray, 600 - 1);
 
+    /*
     BSTFreq second[5];
     //dummy
     second[0].frequency = 0;
@@ -399,7 +401,7 @@ int main(int argc, const char *argv[])
     second[4].word = malloc(20);
 
     strcpy(second[4].word, "D");
-
+*/
     // OptimalBST(second, 4);
 
     //my keys start at 1, not 0
